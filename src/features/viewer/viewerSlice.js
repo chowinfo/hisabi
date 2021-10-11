@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const viewerSlice = createSlice({
     name: "viewer",
     initialState: {
-        view: "BS"
+        view: "TPL"
     },
     reducers: {
         toggleView: (state, action) => {

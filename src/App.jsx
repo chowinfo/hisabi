@@ -19,9 +19,9 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const res = await fetch('data.json');
-    const jsRes = await res.json();
-    this.props.updateData(jsRes);
+    // const res = await fetch('data.json');
+    // const jsRes = await res.json();
+    // this.props.updateData(jsRes);
   }
 
   render() {

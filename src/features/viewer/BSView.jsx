@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { formatCurrency, getObjectSum } from "./helpers";
+import { formatCurrency, getObjectSum } from "../../app/helpers";
 
 const mapStateToProps = (state, ownProps) => {
     const { data } = state.app;
