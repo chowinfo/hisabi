@@ -1,12 +1,17 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 import { BsEyeFill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+
+import { toggleView } from '../features/viewer/viewerSlice';
 
 export default function ViewDropdown(props) {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
+  const dispatch = useDispatch();
+
   function openDropdownPopover() {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: "bottom-start",
@@ -47,7 +52,7 @@ export default function ViewDropdown(props) {
             className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
             onClick={(e) => {
               e.preventDefault();
-              props.setCurrentView("TPL");
+              dispatch(toggleView("TPL"));
               closeDropdownPopover();
             }}
           >
@@ -58,7 +63,7 @@ export default function ViewDropdown(props) {
             className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
             onClick={(e) => {
               e.preventDefault();
-              props.setCurrentView("BS");
+              dispatch(toggleView("BS"));
               closeDropdownPopover();
             }}
           >
@@ -69,7 +74,7 @@ export default function ViewDropdown(props) {
             className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
             onClick={(e) => {
               e.preventDefault();
-              props.setCurrentView("CS");
+              dispatch(toggleView("CS"));
               closeDropdownPopover();
             }}
           >

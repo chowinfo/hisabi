@@ -3,31 +3,25 @@ import "./App.css";
 import React, { Component } from "react";
 import { ImPrinter } from "react-icons/im";
 import ReactToPrint from "react-to-print";
+import { connect } from "react-redux";
 
 import Header from "./components/Header";
-import TPLView from "./components/TPLView";
-import BSView from "./components/BSView";
-import CSView from "./components/CSView";
+import Viewer from "./features/viewer/Viewer";
+import { updateData } from "./app/appReducer";
 
-export default class App extends Component {
+const mapDispatchToProps = (dispatch) => ({
+  updateData: data => dispatch(updateData(data))
+});
+class App extends Component {
   constructor(props) {
     super(props);
-    this.componentRef = <></>;
-    this.tplViewRef = <></>;
-    // this.componentRef = React.createRef();
-    this.state = JSON.parse(localStorage.getItem("hisabi-app")) || {
-      currentView: "TPL",
-    };
-
-    this.setCurrentView = this.setCurrentView.bind(this);
+    this.componentRef = React.createRef();
   }
 
-  componentDidUpdate() {
-    localStorage.setItem("hisabi-app", JSON.stringify(this.state));
-  }
-
-  setCurrentView(view) {
-    this.setState({ ...this.state, currentView: view });
+  async componentDidMount() {
+    const res = await fetch('data.json');
+    const jsRes = await res.json();
+    this.props.updateData(jsRes);
   }
 
   render() {
@@ -48,25 +42,13 @@ export default class App extends Component {
               content={() => this.componentRef}
             />
           }
-          setCurrentView={this.setCurrentView}
         />
 
-        {this.state.currentView === "TPL" ? (
-          <TPLView ref={(el) => (this.componentRef = el)} />
-        ) : (
-          <></>
-        )}
-        {this.state.currentView === "BS" ? (
-          <BSView ref={(el) => (this.componentRef = el)} />
-        ) : (
-          <></>
-        )}
-        {this.state.currentView === "CS" ? (
-          <CSView ref={(el) => (this.componentRef = el)} />
-        ) : (
-          <></>
-        )}
+        <Viewer xref={this.componentRef} />
       </div>
     );
   }
 }
+
+
+export default connect(null, mapDispatchToProps)(App);
