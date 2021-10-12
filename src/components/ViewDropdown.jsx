@@ -4,6 +4,7 @@ import { BsEyeFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 
 import { toggleView } from '../features/viewer/viewerSlice';
+import { toggleEditMode } from "../app/appReducer";
 
 export default function ViewDropdown(props) {
   // dropdown props
@@ -53,6 +54,7 @@ export default function ViewDropdown(props) {
             onClick={(e) => {
               e.preventDefault();
               dispatch(toggleView("TPL"));
+              dispatch(toggleEditMode({ type: "view" }));
               closeDropdownPopover();
             }}
           >
@@ -64,6 +66,7 @@ export default function ViewDropdown(props) {
             onClick={(e) => {
               e.preventDefault();
               dispatch(toggleView("BS"));
+              dispatch(toggleEditMode({ type: "view" }));
               closeDropdownPopover();
             }}
           >
@@ -75,6 +78,7 @@ export default function ViewDropdown(props) {
             onClick={(e) => {
               e.preventDefault();
               dispatch(toggleView("CS"));
+              dispatch(toggleEditMode({ type: "view" }));
               closeDropdownPopover();
             }}
           >

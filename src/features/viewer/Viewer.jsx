@@ -6,9 +6,10 @@ import TPLView from './TPLView';
 import BSView from './BSView';
 import CSView from './CSView';
 
-function Viewer({ xref, ...props }) {
+function Viewer({ isActive, xref, ...props }) {
     const view = useSelector((state) => state.viewer.view);
-
+    if (!isActive)
+        return null;
     return (
         <div className="viewer">
             {view === "TPL" ? (
@@ -31,7 +32,12 @@ function Viewer({ xref, ...props }) {
 }
 
 Viewer.propTypes = {
-    children: PropTypes.element
+    children: PropTypes.element,
+    isActive: PropTypes.bool
+};
+
+Viewer.defaultProps = {
+    isActive: true
 };
 
 export default Viewer;

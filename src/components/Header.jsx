@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FaBars, FaFileUpload, FaFileDownload } from "react-icons/fa";
+import { FaBars, FaFileUpload, FaFileDownload, FaEdit } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "./Modal";
@@ -64,6 +64,14 @@ export default function Header({ printButton, setCurrentView, fixed }) {
                 <ViewDropdown>
 
                 </ViewDropdown>
+              </li>
+              <li className="nav-item">
+                <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="#upload"
+                  onClick={() =>{}}
+                >
+                  <FaEdit className="text-lg leading-lg text-white opacity-75" />
+                  <span className="ml-2">Edit</span>
+                </a>
               </li>
               <li className="nav-item">
                 <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="#upload"

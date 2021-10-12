@@ -8,10 +8,20 @@ import { connect } from "react-redux";
 import Header from "./components/Header";
 import Viewer from "./features/viewer/Viewer";
 import { updateData } from "./app/appReducer";
+import Editor from "./features/editor/Editor";
 
 const mapDispatchToProps = (dispatch) => ({
   updateData: data => dispatch(updateData(data))
 });
+
+const mapStateToProps  = (state, ownProps) => {
+  const { isEditing } = state.app;
+  return {
+    isEditing,
+    ...ownProps
+  };
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -44,11 +54,12 @@ class App extends Component {
           }
         />
 
-        <Viewer xref={this.componentRef} />
+        <Viewer isActive={!this.props.isEditing} xref={this.componentRef} />
+        <Editor isActive={this.props.isEditing}/>
       </div>
     );
   }
 }
 
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
