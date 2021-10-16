@@ -32,8 +32,8 @@ function Viewer({ isActive, xref, ...props }) {
 }
 
 Viewer.propTypes = {
-    children: PropTypes.element,
-    isActive: PropTypes.bool
+    children: PropTypes.node,
+    isActive: PropTypes.bool.isRequired
 };
 
 Viewer.defaultProps = {

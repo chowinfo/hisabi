@@ -8,6 +8,7 @@ import Modal from "./Modal";
 import ViewDropdown from "./ViewDropdown";
 import { updateData } from "../app/appReducer";
 import { downloadFile } from "../app/helpers";
+import EditDropdown from "./EditDropdown";
 
 export default function Header({ printButton, setCurrentView, fixed }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -61,17 +62,10 @@ export default function Header({ printButton, setCurrentView, fixed }) {
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">{printButton}</li>
               <li className="nav-item">
-                <ViewDropdown>
-
-                </ViewDropdown>
+                <ViewDropdown/>
               </li>
               <li className="nav-item">
-                <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="#upload"
-                  onClick={() =>{}}
-                >
-                  <FaEdit className="text-lg leading-lg text-white opacity-75" />
-                  <span className="ml-2">Edit</span>
-                </a>
+                  <EditDropdown/>
               </li>
               <li className="nav-item">
                 <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="#upload"

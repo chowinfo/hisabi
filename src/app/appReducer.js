@@ -7,9 +7,9 @@ export const appSlice = createSlice({
         data: {
             year: 2021,
             Info: {
-                Name: "",
-                "Trade Name": "",
-                PAN: "",
+                Name: "XYZ",
+                "Trade Name": "ABC Pvt Ltd",
+                PAN: "AAAAA12345A",
                 "Address 1": "",
                 "Address 2": "",
             },
@@ -33,7 +33,7 @@ export const appSlice = createSlice({
             state.data = action.payload;
         },
         toggleEditMode: (state, action) => {
-            state.isEditing = action.type == "edit";
+            state.isEditing = action.payload.type === "edit";
         }
     }
 });
