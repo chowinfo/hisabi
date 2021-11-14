@@ -6,12 +6,12 @@ import TPLView from './TPLView';
 import BSView from './BSView';
 import CSView from './CSView';
 
-function Viewer({ isActive, xref, ...props }) {
+const Viewer = React.forwardRef(({ isActive, ...props }, ref) => {
     const view = useSelector((state) => state.viewer.view);
     if (!isActive)
         return null;
     return (
-        <div className="viewer">
+        <div className="viewer" ref={ref}>
             {view === "TPL" ? (
                 <TPLView />
             ) : (
@@ -29,7 +29,7 @@ function Viewer({ isActive, xref, ...props }) {
             )}
         </div>
     );
-}
+});
 
 Viewer.propTypes = {
     children: PropTypes.node,
