@@ -15,7 +15,7 @@ class CSView extends Component {
 
     render() {
         return (
-            <div className="bs-view print-view">
+            <div className="bs-view print-view text-lg">
                 <div className="text-center">
                     <div className="name uppercase">{this.props.data.Info.Name}</div>
                     <div className="pan">PAN - {this.props.data.Info.PAN}</div>
@@ -24,8 +24,8 @@ class CSView extends Component {
                         {this.props.data.Info["Address 2"]}
                     </div>
                     <div className="fyay">
-                        FY- {(this.props.data.year - 2) + '-' + (this.props.data.year - 1)},
-                        AY- {(this.props.data.year - 1) + '-' + this.props.data.year}
+                        FY- {(this.props.data.year - 1) + '-' + (this.props.data.year)},
+                        AY- {(this.props.data.year) + '-' + this.props.data.year + 1}
                     </div>
                     <div className="underline title">
                         Computation of Total Income
