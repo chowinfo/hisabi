@@ -25,7 +25,7 @@ class CSView extends Component {
                     </div>
                     <div className="fyay">
                         FY- {(this.props.data.year - 1) + '-' + (this.props.data.year)},
-                        AY- {(this.props.data.year) + '-' + this.props.data.year + 1}
+                        AY- {(this.props.data.year) + '-' + (parseInt(this.props.data.year) + 1)}
                     </div>
                     <div className="underline title">
                         Computation of Total Income
