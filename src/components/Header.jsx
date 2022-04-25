@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FaBars, FaFileUpload, FaFileDownload, FaEdit } from "react-icons/fa";
+import { FaBars, FaFileUpload, FaFileDownload } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "./Modal";

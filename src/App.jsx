@@ -1,65 +1,51 @@
 import "./App.css";
 
-import React, { Component } from "react";
+import React from "react";
 import { ImPrinter } from "react-icons/im";
-import ReactToPrint from "react-to-print";
-import { connect } from "react-redux";
+import { useReactToPrint } from "react-to-print";
 
 import Header from "./components/Header";
 import Viewer from "./features/viewer/Viewer";
-import { updateData } from "./app/appReducer";
 import Editor from "./features/editor/Editor";
+import { useSelector } from "react-redux";
 
-const mapDispatchToProps = (dispatch) => ({
-  updateData: data => dispatch(updateData(data))
-});
+function App() {
+    const componentRef = React.useRef();
 
-const mapStateToProps  = (state, ownProps) => {
-  const { isEditing } = state.app;
-  return {
-    isEditing,
-    ...ownProps
-  };
-};
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.componentRef = React.createRef();
-  }
+    React.useEffect(() => {
+        window.onkeydown = function (e) {
+            if (e.ctrlKey && e.keyCode === "P".charCodeAt(0)) {
+                e.preventDefault();
+                handlePrint();
+            }
+        };
+    });
 
-  async componentDidMount() {
-    // const res = await fetch('data.json');
-    // const jsRes = await res.json();
-    // this.props.updateData(jsRes);
-  }
+    const isEditing = useSelector((state) => state.app.isEditing);
 
-  render() {
     return (
-      <div className="App">
-        <Header
-          printButton={
-            <ReactToPrint
-              trigger={() => (
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#print"
-                >
-                  <ImPrinter className="text-lg leading-lg text-white opacity-75" />
-                  <span className="ml-2">Print</span>
-                </a>
-              )}
-              content={() => this.componentRef}
+        <div className="App">
+            <Header
+                printButton={
+                    <a
+                        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                        href="#print"
+                        onClick={handlePrint}
+                    >
+                        <ImPrinter className="text-lg leading-lg text-white opacity-75" />
+                        <span className="ml-2">Print</span>
+                    </a>
+                }
             />
-          }
-        />
 
-        <Viewer isActive={!this.props.isEditing} xref={this.componentRef} />
-        <Editor isActive={this.props.isEditing}/>
-      </div>
+            <Viewer isActive={!isEditing} ref={componentRef} />
+            <Editor isActive={isEditing} />
+        </div>
     );
-  }
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
