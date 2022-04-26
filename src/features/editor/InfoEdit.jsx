@@ -32,7 +32,7 @@ class InfoEdit extends Component {
 		return (
 			<div className="info-edit edit-view">
 				<div
-					className="form-container flex flex-col items-center justify-center mx-auto bg-green-100 p-2"
+					className="form-container flex flex-col items-center justify-center mx-auto bg-green-light p-2"
 					style={{ maxWidth: "800px" }}
 				>
 					<div className="flex-1 text-center underline uppercase text-lg">

@@ -40,7 +40,7 @@ class TPLEdit extends Component {
 		return (
 			<div className="tpl-edit edit-view">
 				<div
-					className="form-container flex flex-col items-center justify-center mx-auto bg-green-100 p-2"
+					className="form-container flex flex-col items-center justify-center mx-auto bg-green-light p-2"
 					style={{ maxWidth: "800px" }}
 				>
 					<div className="flex-1 text-center underline uppercase text-lg">
@@ -95,7 +95,7 @@ class TPLEdit extends Component {
 						<div className="flex justify-center pt-5">
 							<button
 								type="submit"
-								className="flex items-center text-xs uppercase font-bold leading-snug bg-green-500 p-3 rounded text-xs uppercase text-white hover:bg-green-400 hover:opacity-75"
+								className="flex items-center text-xs uppercase font-bold leading-snug bg-green p-3 rounded text-white hover:bg-green-400 hover:opacity-75"
 							>
 								<FaPlusCircle className="text-lg leading-lg" />
 								Submit
