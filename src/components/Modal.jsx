@@ -20,12 +20,12 @@ class Modal extends Component {
 			</div>
 		),
 		yesBtn: (
-			<button className="modal-close px-4 bg-green-500 p-3 rounded text-xs uppercase text-white hover:bg-green-400">
+			<button className="modal-close px-4 bg-green p-3 rounded text-xs uppercase text-white hover:bg-green-light">
 				Yes
 			</button>
 		),
 		noBtn: (
-			<button className="modal-close border ml-4 px-4 bg-white p-3 rounded text-xs uppercase text-black hover:bg-gray-200">
+			<button className="modal-close border-gray-dark ml-4 px-4 bg-white p-3 rounded text-xs uppercase text-gray-dark hover:bg-gray-dark hover:text-white">
 				No
 			</button>
 		),
