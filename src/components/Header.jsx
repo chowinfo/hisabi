@@ -71,17 +71,17 @@ export default function Header({ printButton, setCurrentView, fixed }) {
 							</li>
 							<li className="nav-item">
 								<a
-									className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+									className="px-3 py-2 flex gap-2 items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
 									href="#upload"
 									onClick={() => setUploadModal(!uploadModal)}
 								>
 									<FileUploadIcon className="text-lg leading-lg text-white opacity-75" />
-									<span className="ml-2">Upload</span>
+									<span>Upload</span>
 								</a>
 							</li>
 							<li className="nav-item">
 								<a
-									className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+									className="px-3 py-2 flex gap-2 items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
 									href="#upload"
 									onClick={() => {
 										const filename = Date.now() + '-' + data.Info.Name + '-' + data.year + '.json';
@@ -90,7 +90,7 @@ export default function Header({ printButton, setCurrentView, fixed }) {
 									}}
 								>
 									<FileDownloadIcon className="text-lg leading-lg text-white opacity-75" />
-									<span className="ml-2">Download</span>
+									<span>Download</span>
 								</a>
 							</li>
 						</ul>
@@ -100,15 +100,15 @@ export default function Header({ printButton, setCurrentView, fixed }) {
 			{uploadModal ? (
 				<Modal
 					modalTitle="JSON Data Upload"
-					yesBtn={<></>}
-					noBtn={<></>}
+					yesBtn={null}
+					noBtn={null}
 					isActive={uploadModal}
 					onClose={() => {
 						setUploadModal(!uploadModal);
 					}}
 				>
 					<form id="upload-form" onSubmit={handleSubmit}>
-						<div className="form-group">
+						<div className="form-group grid grid-cols-1 gap-2">
 							<label className="" htmlFor="jsonFile">
 								Upload JSON file:{' '}
 							</label>

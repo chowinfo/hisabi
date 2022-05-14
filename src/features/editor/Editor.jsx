@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import TPLEdit from "./TPLEdit";
+import TEdit from "./TEdit";
+import PLEdit from "./PLEdit";
 import BSEdit from "./BSEdit";
 import CSEdit from "./CSEdit";
 import InfoEdit from './InfoEdit';
@@ -18,8 +19,13 @@ function Editor({ isActive, ...others }) {
             ) : (
                 <></>
             )}
-            {edit === "TPL" ? (
-                <TPLEdit />
+            {edit === "T" ? (
+                <TEdit />
+            ) : (
+                <></>
+            )}
+            {edit === "PL" ? (
+                <PLEdit />
             ) : (
                 <></>
             )}

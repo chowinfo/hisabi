@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { FaTimes } from "react-icons/fa";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { FaTimes } from 'react-icons/fa';
 
 class Modal extends Component {
 	static propTypes = {
@@ -13,7 +13,7 @@ class Modal extends Component {
 	};
 	static defaultProps = {
 		isActive: false,
-		modalTitle: "Simple Modal",
+		modalTitle: 'Simple Modal',
 		children: (
 			<div>
 				<h5 className="center">Do you like this modal?</h5>
@@ -45,22 +45,20 @@ class Modal extends Component {
 						}}
 						className="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50"
 					>
-						{" "}
+						{' '}
 						<FaTimes />
 						{/* <span className="text-sm">(Esc)</span> */}
 					</div>
 
 					{/* Add margin if you want to see some of the overlay behind the modal */}
-					<div className="modal-content py-4 text-left px-6">
+					<div className="modal-content text-left border border-gray-dark">
 						{/* Title */}
-						<div className="flex justify-between items-center pb-3">
-							<p className="text-2xl font-bold">
-								{this.props.modalTitle}
-							</p>
+						<div className="flex justify-between items-center p-5">
+							<p className="text-2xl font-bold">{this.props.modalTitle}</p>
 							<div
 								className="modal-close cursor-pointer z-50"
-								onClick={() => {
-									this.props.onClose();
+								onClick={(evt) => {
+									this.props.onClose(evt);
 								}}
 							>
 								<FaTimes />
@@ -68,15 +66,15 @@ class Modal extends Component {
 						</div>
 
 						{/* Body */}
-						<div className="modal-body p-2">
-							{this.props.children}
-						</div>
+						<div className="modal-body p-5">{this.props.children}</div>
 
 						{/* Footer */}
-						<div className="flex justify-center pt-2">
-							{this.props.yesBtn}
-							{this.props.noBtn}
-						</div>
+						{this.props.yesBtn && this.props.noBtn ? (
+							<div className="flex justify-center gap-2 p-5">
+								{this.props.yesBtn}
+								{this.props.noBtn}
+							</div>
+						) : null}
 					</div>
 				</div>
 			</div>
