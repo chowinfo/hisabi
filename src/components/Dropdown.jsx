@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaChevronDown as ShowMenuIcon, FaChevronUp as HideMenuIcon} from "react-icons/fa";
 
 class Dropdown extends Component {
 	constructor(props) {
@@ -83,12 +83,12 @@ class Dropdown extends Component {
 		return (
 			<div className="dropdown-container relative">
 				<div
-					className="dropdown-toggler px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ease-linear transition-all duration-150 "
+					className="dropdown-toggler px-3 py-2 flex gap-2 items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ease-linear transition-all duration-150 "
 					onClick={this.toggleDropDown}
 					ref={(ref) => (this.dropTogglerRef = ref)}
 				>
 					{label}
-					{isOpen ? <FaChevronUp /> : <FaChevronDown />}
+					{isOpen ? <HideMenuIcon /> : <ShowMenuIcon />}
 				</div>
 				<div
 					className="dropdown-area absolute bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-2"

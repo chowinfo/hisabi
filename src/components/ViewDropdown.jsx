@@ -90,7 +90,7 @@ export default function ViewDropdown(props) {
       </div> */}
       <Dropdown onChange={setDropdownPopoverShow} isOpen={dropdownPopoverShow}
         label={<><BsEyeFill className="text-lg leading-lg text-white opacity-75" />
-          <span className="ml-2">View</span></>}>
+          <span>View</span></>}>
         <a
           href="#tpl"
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
