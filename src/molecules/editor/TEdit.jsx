@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FaPlusCircle as AddIcon, FaTimesCircle as DeleteIcon } from 'react-icons/fa';
 import { updateSheet, updateSheetKey, addSheetRow } from '../../app/appReducer';
-import Modal from '../../components/Modal';
-import EditableFormGroup from './EditableFormGroup';
+import Modal from '../../atoms/Modal';
+import EditableFormGroup from '../../atoms/EditableFormGroup';
 
 const mapStateToProps = (state, ownProps) => {
 	const { data } = state.app;

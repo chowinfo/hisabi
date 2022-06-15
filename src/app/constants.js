@@ -21,18 +21,24 @@ export const suggestionCorpus = {
 		To: [
 			'Capital Account',
 			'Opening Balance',
+            "Last Account",
 			'Net Profit',
-			'Less. Cash Drawing',
-			'Less. LIP',
+            'Income Tax Refund',
+			'Cash Drawing',
+			'LIP',
 			'Sundry Creditors',
 			'Loans',
 		],
 		By: [
 			'Furniture',
+            'Computer',
+            'Mobile',
+            'TDS',
 			'Lighting & Fittings',
 			'Plant & Machineries',
+            'Addition',
 			'Opening Balance',
-			'Last A/c',
+			'Last Account',
 			'Dep @ 10%',
 			'Dep @ 15%',
 			'Sundry Debtors',
@@ -61,3 +67,14 @@ export const suggestionCorpus = {
 		'R/F u/s 288A',
 	],
 };
+
+export const bankAbbrev = {
+    HDFC: 'HDFC',
+    ICICI: 'ICICI',
+    SBI: 'State Bank of India',
+    AXIS: 'Axis Bank',
+    BOI: 'Bank of India',
+    BOB: 'Bank of Baroda',
+    AB: 'Allahabad Bank',
+    IB: 'Indian Bank',
+}

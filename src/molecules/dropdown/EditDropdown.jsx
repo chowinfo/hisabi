@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { toggleEdit } from '../features/editor/editorSlice';
-import { toggleEditMode } from "../app/appReducer";
-import Dropdown from "./Dropdown";
+import { toggleEdit } from '../editor/editorSlice';
+import { toggleEditMode } from "../../app/appReducer";
+import Dropdown from "../../atoms/Dropdown";
 import { FaEdit } from "react-icons/fa";
 
 export default function EditDropdown(props) {

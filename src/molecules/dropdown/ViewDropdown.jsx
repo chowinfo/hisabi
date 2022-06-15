@@ -2,9 +2,9 @@ import React from "react";
 import { BsEyeFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 
-import { toggleView } from '../features/viewer/viewerSlice';
-import { toggleEditMode } from "../app/appReducer";
-import Dropdown from "./Dropdown";
+import { toggleView } from '../viewer/viewerSlice';
+import { toggleEditMode } from "../../app/appReducer";
+import Dropdown from "../../atoms/Dropdown";
 
 export default function ViewDropdown(props) {
   // dropdown props

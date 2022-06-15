@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateSheet } from '../../app/appReducer';
-import EditableFormGroup from './EditableFormGroup';
+import EditableFormGroup from '../../atoms/EditableFormGroup';
 
 const mapStateToProps = (state, ownProps) => {
 	const { data } = state.app;

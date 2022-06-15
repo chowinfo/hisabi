@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import viewerReducer from '../features/viewer/viewerSlice';
-import editorReducer from '../features/editor/editorSlice';
+import viewerReducer from '../molecules/viewer/viewerSlice';
+import editorReducer from '../molecules/editor/editorSlice';
 import appReducer from './appReducer';
 
 export default configureStore({

@@ -8,7 +8,7 @@ import BSEdit from "./BSEdit";
 import CSEdit from "./CSEdit";
 import InfoEdit from './InfoEdit';
 
-function Editor({ isActive, ...others }) {
+const Editor = ({ isActive, ...others }) => {
     const edit = useSelector((state) => state.editor.edit);
     if (!isActive)
         return null;
@@ -45,10 +45,10 @@ function Editor({ isActive, ...others }) {
 
 Editor.propTypes = {
     children: PropTypes.node,
-    isActive: PropTypes.bool.isRequired
+    isActive: PropTypes.bool.isRequired,
 };
 
-Editor.propTypes = {
+Editor.defaultProps = {
     isActive: true
 };
 
