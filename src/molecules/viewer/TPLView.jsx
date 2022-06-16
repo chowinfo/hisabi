@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { formatCurrency, getObjectSum } from "../../app/helpers";
+import { TPLFilter } from '../../utilities/filterUtil';
 
 const mapStateToProps = (state, ownProps) => {
     const { data } = state.app;
@@ -11,17 +11,61 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 class TPLView extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tradename: "Trade Name",
+            name: "Name",
+            address: ["Address1", "Address2"],
+            title: "Title",
+            t_to: [],
+            t_by: [],
+            t_total: ["₹0.00", "₹0.00"],
+            pl_to: [],
+            pl_by: [],
+            pl_total: ["₹0.00", "₹0.00"],
+        };
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        const filteredData = TPLFilter(nextProps.data);
+        if (filteredData.success) {
+            const {
+                tradename,
+                name,
+                address,
+                title,
+                t_to,
+                t_by,
+                t_total,
+                pl_to,
+                pl_by,
+                pl_total,
+            } = filteredData.data;
+            return {
+                tradename,
+                name,
+                address,
+                title,
+                t_to,
+                t_by,
+                t_total,
+                pl_to,
+                pl_by,
+                pl_total,
+            };
+        }
+    }
 
     render() {
         return (
             <div className="tpl-view print-view">
                 <div className="text-center">
-                    <div className="tradeName">{this.props.data.Info['Trade Name']}</div>
-                    <div className="name">Prop - {this.props.data.Info.Name}</div>
-                    <div className="address1">{this.props.data.Info['Address 1']}</div>
-                    <div className="underline address2">{this.props.data.Info['Address 2']}</div>
-                    <div className="underline title">Trading and Profit & Loss Account for the year
-                        ending 31st March, {this.props.data.year}</div>
+                    <div className="tradeName">{this.state.tradename}</div>
+                    <div className="name">Prop - {this.state.name}</div>
+                    <div className="address1">{this.state.address[0]}</div>
+                    <div className="underline address2">{this.state.address[1]}</div>
+                    <div className="underline title">{this.state.title}</div>
                 </div>
                 <div className="h-container">
                     <div className="grid grid-cols-2">
@@ -36,74 +80,98 @@ class TPLView extends Component {
                         </div>
                     </div>
                 </div>
+
                 {('T' in this.props.data) ?
                     <div className="t-container mb-4 text-sm">
                         <div className="grid grid-cols-2">
+                            {/* Trading To */}
                             <div className="px-1">
-                                {
-                                    Object.keys(this.props.data.T.To).map((keyName, i) => {
+                                {this.state.t_to.map(
+                                    (to, index) => {
                                         return (
-                                            <React.Fragment key={i}>
-                                                <div className="grid grid-cols-2" >
-                                                    <div className="text-left">To {keyName}</div>
-                                                    <div className="text-right">{typeof this.props.data.T.To[keyName] == 'number' ? formatCurrency(this.props.data.T.To[keyName]) : ""}</div>
+                                            <div
+                                                className={
+                                                    "grid grid-cols-2 px-1 mx-" +
+                                                    to.height * 4 +
+                                                    (to.valid
+                                                        ? ""
+                                                        : " bg-red-light")
+                                                }
+                                                key={index}
+                                            >
+                                                <div
+                                                    className={
+                                                        "text-left" +
+                                                        (to.underline
+                                                            .name
+                                                            ? " underline"
+                                                            : "")
+                                                    }
+                                                >
+                                                    {to.name}
                                                 </div>
-                                                {typeof this.props.data.T.To[keyName] == 'object' ?
-                                                    <React.Fragment>
-                                                        {Object.keys(this.props.data.T.To[keyName]).map((key, ind) => (
-                                                            <div className="grid grid-cols-2" key={ind}>
-                                                                <div className="text-left pl-4">on {key}</div>
-                                                                <div className="text-right pr-4">
-                                                                    <span className={(Object.keys(this.props.data.T.To[keyName])[Object.keys(this.props.data.T.To[keyName]).length - 1] === key ? 'accounting-col border-2 border-t-0 border-l-0 border-r-0 border-current' : '')}>
-                                                                        {typeof this.props.data.T.To[keyName][key] == 'number' ? formatCurrency(this.props.data.T.To[keyName][key]) : ""}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        ))}
-                                                        <div className="grid grid-cols-2">
-                                                            <div className=""></div>
-                                                            <div className="text-right">{formatCurrency(getObjectSum(this.props.data.T.To[keyName]))}</div>
-                                                        </div>
-                                                    </React.Fragment>
-                                                    : <></>}
-                                            </React.Fragment>
+                                                <div
+                                                    className={
+                                                        "text-right" +
+                                                        (to.underline
+                                                            .amount
+                                                            ? " accounting-col border-2 border-t-0 border-l-0 border-r-0 border-current"
+                                                            : "")
+                                                    }
+                                                >
+                                                    {to.amount}
+                                                </div>
+                                            </div>
                                         );
-                                    })
-                                }
+                                    }
+                                )}
                             </div>
+                            {/* \Trading To */}
 
+                            {/* Trading By */}
                             <div className="px-1">
-                                {
-                                    Object.keys(this.props.data.T.By).map((keyName, i) => {
+                                {this.state.t_by.map(
+                                    (by, index) => {
                                         return (
-                                            <React.Fragment key={i}>
-                                                <div className="grid grid-cols-2" >
-                                                    <div className="text-left">By {keyName}</div>
-                                                    <div className="text-right">{typeof this.props.data.T.By[keyName] == 'number' ? formatCurrency(this.props.data.T.By[keyName]) : ""}</div>
+                                            <div
+                                                className={
+                                                    "grid grid-cols-2 px-1 mx-" +
+                                                    by.height * 4 +
+                                                    (by.valid
+                                                        ? ""
+                                                        : " bg-red-light")
+                                                }
+                                                key={index}
+                                            >
+                                                <div
+                                                    className={
+                                                        "text-left" +
+                                                        (by.underline
+                                                            .name
+                                                            ? " underline"
+                                                            : "")
+                                                    }
+                                                >
+                                                    {by.name}
                                                 </div>
-                                                {typeof this.props.data.T.By[keyName] == 'object' ?
-                                                    <React.Fragment>
-                                                        {Object.keys(this.props.data.T.By[keyName]).map((key, ind) => (
-                                                            <div className="grid grid-cols-2" key={ind}>
-                                                                <div className="text-left pl-4">on {key}</div>
-                                                                <div className="text-right pr-4">
-                                                                    <span className={(Object.keys(this.props.data.T.By[keyName])[Object.keys(this.props.data.T.By[keyName]).length - 1] === key ? 'inline-block accounting-col border-2 border-t-0 border-l-0 border-r-0 border-current' : '')}>
-                                                                        {typeof this.props.data.T.By[keyName][key] == 'number' ? formatCurrency(this.props.data.T.By[keyName][key]) : ""}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        ))}
-                                                        <div className="grid grid-cols-2">
-                                                            <div className=""></div>
-                                                            <div className="text-right">{formatCurrency(getObjectSum(this.props.data.T.By[keyName]))}</div>
-                                                        </div>
-                                                    </React.Fragment>
-                                                    : <></>}
-                                            </React.Fragment>
+                                                <div
+                                                    className={
+                                                        "text-right" +
+                                                        (by.underline
+                                                            .amount
+                                                            ? " accounting-col border-2 border-t-0 border-l-0 border-r-0 border-current"
+                                                            : "")
+                                                    }
+                                                >
+                                                    {by.amount}
+                                                </div>
+                                            </div>
                                         );
-                                    })
-                                }
+                                    }
+                                )}
                             </div>
+                            {/* \Trading By */}
+
                         </div>
 
                         <div className="grid grid-cols-2">
@@ -112,7 +180,7 @@ class TPLView extends Component {
                                     <div className=""></div>
                                     <div className="text-right">
                                         <span className="accounting-col border-2 border-l-0 border-r-0 border-current">
-                                            {formatCurrency(getObjectSum(this.props.data.T.To))}
+                                            {this.state.t_total[0]}
                                         </span>
                                     </div>
                                 </div>
@@ -122,7 +190,7 @@ class TPLView extends Component {
                                     <div className=""></div>
                                     <div className="text-right">
                                         <span className="accounting-col border-2 border-l-0 border-r-0 border-current">
-                                            {formatCurrency(getObjectSum(this.props.data.T.By))}
+                                            {this.state.t_total[1]}
                                         </span>
                                     </div>
                                 </div>
@@ -135,41 +203,86 @@ class TPLView extends Component {
                 {('PL' in this.props.data) ?
                     <div className="pl-container mb-4 text-sm">
                         <div className="grid grid-cols-2">
+                            {/* PL To */}
                             <div className="px-1">
-                                {
-                                    Object.keys(this.props.data.PL.To).map((keyName, i) => {
+                                {this.state.pl_to.map(
+                                    (to, index) => {
                                         return (
-                                            <React.Fragment key={i}>
-                                                <div className="grid grid-cols-2" >
-                                                    <div className="text-left">To {keyName}</div>
-                                                    <div className="text-right">{typeof this.props.data.PL.To[keyName] == 'number' ? formatCurrency(this.props.data.PL.To[keyName]) : ""}</div>
+                                            <div
+                                                className={
+                                                    "grid grid-cols-2 px-1 mx-" +
+                                                    to.height * 4 +
+                                                    (to.valid
+                                                        ? ""
+                                                        : " bg-red-light")
+                                                }
+                                                key={index}
+                                            >
+                                                <div
+                                                    className={
+                                                        "text-left" +
+                                                        (to.underline
+                                                            .name
+                                                            ? " underline"
+                                                            : "")
+                                                    }
+                                                >
+                                                    {to.name}
                                                 </div>
-                                                {typeof this.props.data.PL.To[keyName] == 'object' ?
-                                                    <React.Fragment>
-                                                        {Object.keys(this.props.data.PL.To[keyName]).map((key, ind) => (
-                                                            <div className="grid grid-cols-2" key={ind}>
-                                                                <div className="text-left pl-4">on {key}</div>
-                                                                <div className="text-right pr-4">
-                                                                    <span className={(Object.keys(this.props.data.PL.To[keyName])[Object.keys(this.props.data.PL.To[keyName]).length - 1] === key ? 'inline-block accounting-col border-2 border-t-0 border-l-0 border-r-0 border-current' : '')}>
-                                                                        {typeof this.props.data.PL.To[keyName][key] == 'number' ? formatCurrency(this.props.data.PL.To[keyName][key]) : ""}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        ))}
-                                                        <div className="grid grid-cols-2">
-                                                            <div className=""></div>
-                                                            <div className="text-right">{formatCurrency(getObjectSum(this.props.data.PL.To[keyName]))}</div>
-                                                        </div>
-                                                    </React.Fragment>
-                                                    : <></>}
-                                            </React.Fragment>
+                                                <div
+                                                    className={
+                                                        "text-right" +
+                                                        (to.underline
+                                                            .amount
+                                                            ? " accounting-col border-2 border-t-0 border-l-0 border-r-0 border-current"
+                                                            : "")
+                                                    }
+                                                >
+                                                    {to.amount}
+                                                </div>
+                                            </div>
                                         );
-                                    })
-                                }
+                                    }
+                                )}
                             </div>
+                            {/* \PL To */}
 
+                            {/* PL By */}
                             <div className="px-1">
-                                {
+                                {this.state.pl_by.map(
+                                    (by, index) => {
+                                        return (
+                                            <div
+                                                className={'grid grid-cols-2 px-1 mx-' + by.height * 4 + (by.valid ? "" : " bg-red-light")}
+                                                key={index}
+                                            >
+                                                <div
+                                                    className={
+                                                        "text-left" +
+                                                        (by.underline
+                                                            .name
+                                                            ? " underline"
+                                                            : "")
+                                                    }
+                                                >
+                                                    {by.name}
+                                                </div>
+                                                <div
+                                                    className={
+                                                        "text-right" +
+                                                        (by.underline
+                                                            .amount
+                                                            ? " accounting-col border-2 border-t-0 border-l-0 border-r-0 border-current"
+                                                            : "")
+                                                    }
+                                                >
+                                                    {by.amount}
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )}
+                                {/* {
                                     Object.keys(this.props.data.PL.By).map((keyName, i) => {
                                         return (
                                             <React.Fragment key={i}>
@@ -198,8 +311,10 @@ class TPLView extends Component {
                                             </React.Fragment>
                                         );
                                     })
-                                }
+                                } */}
                             </div>
+                            {/* \PL By */}
+
                         </div>
 
                         <div className="grid grid-cols-2">
@@ -208,7 +323,7 @@ class TPLView extends Component {
                                     <div className=""></div>
                                     <div className="text-right">
                                         <span className="accounting-col border-2 border-l-0 border-r-0 border-current">
-                                            {formatCurrency(getObjectSum(this.props.data.PL.To))}
+                                            {this.state.pl_total[0]}
                                         </span>
                                     </div>
                                 </div>
@@ -218,7 +333,7 @@ class TPLView extends Component {
                                     <div className=""></div>
                                     <div className="text-right">
                                         <span className="accounting-col border-2 border-l-0 border-r-0 border-current">
-                                            {formatCurrency(getObjectSum(this.props.data.PL.By))}
+                                            {this.state.pl_total[1]}
                                         </span>
                                     </div>
                                 </div>
