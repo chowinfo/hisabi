@@ -24,13 +24,13 @@ const App = () => {
     // }
 
     // Load a local mockup
-    // React.useEffect(() => {
-    //     fetchData('sample_mock').then((data) => {
-    //         dispatch(updateData(data));
-    //     }).catch((err) => {
-    //         console.log(err);
-    //     });
-    // }, [dispatch]);
+    React.useEffect(() => {
+        fetchData('sample_mock').then((data) => {
+            dispatch(updateData(data));
+        }).catch((err) => {
+            console.log(err);
+        });
+    }, [dispatch]);
 
     React.useEffect(() => {
         window.onkeydown = function (e) {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { formatCurrency, getObjectSum } from "../../app/helpers";
+import { CSFilter } from "../../utilities/filterUtil";
 
 const mapStateToProps = (state, ownProps) => {
     const { data } = state.app;
@@ -11,21 +11,46 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 class CSView extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: "Name",
+            pan: "PAN",
+            address: ["Address1", "Address2"],
+            fyay: "FY - 2009-10, AY - 2010-11",
+            cs_rows: []
+        }
+    }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        const filteredData = CSFilter(nextProps.data);
+
+        if (filteredData.success) {
+            const { name, pan, address, fyay, cs_rows } = filteredData.data;
+            return {
+                name,
+                pan,
+                address,
+                fyay,
+                cs_rows
+            }
+        }
+    }
 
     render() {
         return (
             <div className="bs-view print-view text-lg">
                 <div className="text-center">
-                    <div className="name uppercase">{this.props.data.Info.Name}</div>
-                    <div className="pan">PAN - {this.props.data.Info.PAN}</div>
-                    <div className="address1">{this.props.data.Info["Address 1"]}</div>
+                    <div className="name uppercase">{this.state.name}</div>
+                    <div className="pan">PAN - {this.state.pan}</div>
+                    <div className="address1">
+                        {this.state.address[0]}
+                    </div>
                     <div className="underline address2">
-                        {this.props.data.Info["Address 2"]}
+                        {this.state.address[1]}
                     </div>
                     <div className="fyay">
-                        FY- {(this.props.data.year - 1) + '-' + (this.props.data.year)},
-                        AY- {(this.props.data.year) + '-' + (parseInt(this.props.data.year) + 1)}
+                        {this.state.fyay}
                     </div>
                     <div className="underline title">
                         Computation of Total Income
@@ -33,9 +58,48 @@ class CSView extends Component {
                 </div>
 
                 <div className="cs-container">
-                    <div className="">
-                        <div className="px-1" style={{ width: "600px", margin: "auto" }}>
-                            {
+                    {/* CS Rows */}
+                    <div className="px-1" style={{ width: "600px", margin: "auto" }}>
+
+                        {this.state.cs_rows.map((row, index) => {
+                            return (
+                                <div
+                                    className={
+                                        "grid grid-cols-2 px-1 mx-" +
+                                        row.height * 4 +
+                                        (row.valid
+                                            ? ""
+                                            : " bg-red-light")
+                                    }
+                                    key={index}
+                                >
+                                    <div
+                                        className={
+                                            "text-left" +
+                                            (row.underline
+                                                .name
+                                                ? " underline"
+                                                : "")
+                                        }
+                                    >
+                                        {row.name}
+                                    </div>
+                                    <div
+                                        className={
+                                            "text-right" +
+                                            (row.underline
+                                                .amount
+                                                ? " accounting-col border-2 border-t-0 border-l-0 border-r-0 border-current"
+                                                : "")
+                                        }
+                                    >
+                                        {row.amount}
+                                    </div>
+                                </div>
+                            );
+                        })}
+
+                        {/* {
                                 Object.keys(this.props.data.CS).map((keyName, i) => {
                                     return (
                                         <React.Fragment key={i}>
@@ -68,9 +132,9 @@ class CSView extends Component {
                                         </React.Fragment>
                                     );
                                 })
-                            }
-                        </div>
+                            } */}
                     </div>
+                    {/* \CS Rows */}
                 </div>
             </div>
         );

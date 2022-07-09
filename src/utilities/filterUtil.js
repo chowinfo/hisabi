@@ -1,4 +1,5 @@
-import { bankAbbrev, suggestionCorpus } from "../app/constants";
+import bankAbbrev from "../app/bank_abbrev.json";
+import suggestionCorpus from "../app/suggestion_corpus.json";
 
 function getObjectSum(obj) {
     let sum = 0;
@@ -187,7 +188,7 @@ const BSFilter = (data) => {
         ],
     };
     filteredData.success = true;
-    filteredData.message = "Data found";
+    filteredData.message = "Data successfully filtered.";
     return filteredData;
 };
 
@@ -437,6 +438,99 @@ const TPLFilter = (data) => {
         ],
     };
     filteredData.success = true;
+    filteredData.message = "Data successfully filtered.";
+    return filteredData;
+};
+
+const CSFilter = (data) => {
+    let filteredData = {
+        success: false,
+        message: "",
+        data: {},
+    };
+
+    if (data.length === 0) {
+        filteredData.message = "No data found";
+        return filteredData;
+    }
+
+    const year = parseInt(data.year);
+    const name = data.Info?.["Name"],
+        address = [data.Info?.["Address 1"], data.Info?.["Address 2"]],
+        pan = data.Info?.["PAN"],
+        fyay = `FY - ${year - 1}-${year}, AY - ${year}-${year + 1}`,
+        cs_rows = [];
+
+    Object.entries(data?.CS).forEach((entry) => {
+        if (entry[0] === "Tax Payable" && entry[1] === 0) {
+            cs_rows[cs_rows.length - 1].underline.amount = true;
+            cs_rows.push({
+                name: entry[0],
+                amount: typeof entry[1] === "number" ? "NIL" : null,
+                valid: suggestionCorpus.CS.includes(entry[0]),
+                underline: {
+                    name: false,
+                    amount: true,
+                },
+                height: 0,
+            });
+        } else {
+            cs_rows.push({
+                name: entry[0],
+                amount:
+                    typeof entry[1] === "number"
+                        ? formatCurrency(entry[1])
+                        : null,
+                valid: suggestionCorpus.CS.includes(entry[0]),
+                underline: {
+                    name: false,
+                    amount: false,
+                },
+                height: 0,
+            });
+        }
+
+        if (typeof entry[1] === "object") {
+            Object.entries(entry[1]).forEach((subEntry, i) => {
+                cs_rows.push({
+                    name:
+                        (subEntry[1] < 0 ? "Less. " : i > 0 ? "Add. " : "") +
+                        subEntry[0],
+                    amount:
+                        typeof subEntry[1] === "number"
+                            ? formatCurrency(subEntry[1])
+                            : null,
+                    valid: suggestionCorpus.CS.includes(subEntry[0]),
+                    underline: {
+                        name: false,
+                        amount: Object.entries(entry[1]).length - 1 === i,
+                    },
+                    height: 1,
+                });
+            });
+            cs_rows.push({
+                name: "",
+                amount: formatCurrency(getObjectSum(entry[1])),
+                valid: true,
+                underline: {
+                    name: false,
+                    amount: false,
+                },
+                height: 0,
+            });
+        }
+    });
+
+    filteredData.data = {
+        name,
+        pan,
+        address,
+        fyay,
+        cs_rows,
+    };
+
+    filteredData.success = true;
+    filteredData.message = "Data successfully filtered.";
     return filteredData;
 };
 
@@ -447,4 +541,5 @@ export {
     BSABankFilter,
     TPLFilter,
     DepTPLFilter,
+    CSFilter,
 };
