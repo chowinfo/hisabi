@@ -25,11 +25,12 @@ const App = () => {
 
     // Load a local mockup
     React.useEffect(() => {
-        fetchData('sample_mock').then((data) => {
-            dispatch(updateData(data));
-        }).catch((err) => {
-            console.log(err);
-        });
+        if (process.env.NODE_ENV === "development")
+            fetchData('sample_mock').then((data) => {
+                dispatch(updateData(data));
+            }).catch((err) => {
+                console.log(err);
+            });
     }, [dispatch]);
 
     React.useEffect(() => {

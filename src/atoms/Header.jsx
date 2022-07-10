@@ -24,13 +24,18 @@ export default function Header({ printButton, setCurrentView, fixed }) {
         event.preventDefault();
         if (jsonFileInputRef.current.files.length > 0) {
             const file = jsonFileInputRef.current.files[0];
+            console.log(file);
 
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                dispatch(updateData(JSON.parse(e.target.result)));
-                setUploadModal(!uploadModal);
-            };
-            reader.readAsText(file);
+            if (file.type === "application/json") {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    dispatch(updateData(JSON.parse(e.target.result)));
+                    setUploadModal(!uploadModal);
+                };
+                reader.readAsText(file);
+            } else {
+                alert('Please select a JSON File');
+            }
         } else {
             alert('Please select a file');
         }
@@ -65,7 +70,7 @@ export default function Header({ printButton, setCurrentView, fixed }) {
                             <li className="nav-item">
                                 <ViewDropdown />
                             </li>
-                            <li className="nav-item">
+                            <li className="nav-item hidden">
                                 <EditDropdown />
                             </li>
                             <li className="nav-item">

@@ -24,6 +24,8 @@
             "Salary",
             "Trade License",
             "Professional Tax",
+            "Municipal Tax",
+            "Books & Magazines",
             "Electric Charges",
             "Printing & Stationary",
             "Travel & Conveyance",
@@ -48,7 +50,8 @@
             "Interest on Deposits",
             "Interest on IT Refund",
             "Interest on Capital",
-            "House Rent"
+            "House Rent",
+            "Tution Fees"
         ]
     },
     "BS": {
@@ -73,8 +76,9 @@
             "Lighting & Fittings",
             "Fan",
             "Tools & Equipments",
+            "Ornaments",
+            "Fridge",
             "Plant & Machineries",
-            "Balance & Weights",
             "Land & Building",
             "Income Tax Refund",
             "Domestic Appliances",
@@ -92,15 +96,19 @@
             "Closing Stock",
             "Advances and Investment",
             "Cash at Bank",
-            "Cash in Hand",
-            "(\\w+)\\s*,\\s*([\\w\\s]+)\\s*,\\s*([\\w]+)\\s*A/c\\s*-\\s*([\\d]+)"
+            "Cash in Hand"
         ]
     },
     "CS": [
         "Income from Salary",
         "Standard Deduction u/s 16A",
         "Income from Business",
+        "Income from Profession",
         "Net Profit",
+        "Income from House Property",
+        "Rent received",
+        "Tax Paid to Local Authorities",
+        "Deduction u/s 24(a) 30%",
         "Income from Other Sources",
         "Interest on Savings",
         "Interest on Deposits",
@@ -119,5 +127,8 @@
         "Tax Refund",
         "Tax Payable",
         "Tax there on"
-    ]
+    ],
+    "pattern": {
+        "Cash at Bank": "(\\w+)\\s*,\\s*([\\w\\s]+)\\s*,\\s*([\\w]+)\\s*A/c\\s*-\\s*([\\d]+)"
+    }
 }

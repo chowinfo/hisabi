@@ -79,70 +79,25 @@ const BSFilter = (data) => {
     const assets = [],
         liabilities = [];
 
-    // Calculating Liabilities
-    Object.entries(data?.BS?.To).forEach((entry) => {
-        liabilities.push({
-            name: entry[0],
-            amount:
-                typeof entry[1] === "number" ? formatCurrency(entry[1]) : null,
-            valid: suggestionCorpus.BS.To.includes(entry[0]),
-            underline: {
-                name: typeof entry[1] === "object",
-                amount: false,
-            },
-            height: 0,
-        });
-        if (typeof entry[1] === "object") {
-            Object.entries(entry[1]).forEach((subEntry, i) => {
-                liabilities.push({
-                    name:
-                        (subEntry[1] < 0 ? "Less. " : i > 0 ? "Add. " : "") +
-                        subEntry[0],
-                    amount:
-                        typeof subEntry[1] === "number"
-                            ? formatCurrency(subEntry[1])
-                            : null,
-                    valid: suggestionCorpus.BS.To.includes(subEntry[0]),
-                    underline: {
-                        name: false,
-                        amount: Object.entries(entry[1]).length - 1 === i,
-                    },
-                    height: 1,
-                });
-            });
+    if (data.BS) {
+        // Calculating Liabilities
+        Object.entries(data?.BS?.To).forEach((entry) => {
             liabilities.push({
-                name: "",
-                amount: formatCurrency(getObjectSum(entry[1])),
-                valid: true,
+                name: entry[0],
+                amount:
+                    typeof entry[1] === "number"
+                        ? formatCurrency(entry[1])
+                        : null,
+                valid: suggestionCorpus.BS.To.includes(entry[0]),
                 underline: {
-                    name: false,
+                    name: typeof entry[1] === "object",
                     amount: false,
                 },
                 height: 0,
             });
-        }
-    });
-
-    // Calculating Assets
-    Object.entries(data?.BS?.By).forEach((entry) => {
-        assets.push({
-            name: entry[0],
-            amount:
-                typeof entry[1] === "number" ? formatCurrency(entry[1]) : null,
-            valid: suggestionCorpus.BS.By.includes(entry[0]),
-            underline: {
-                name: typeof entry[1] === "object",
-                amount: false,
-            },
-            height: 0,
-        });
-
-        if (typeof entry[1] === "object") {
-            if (entry[0] === "Cash at Bank") {
-                assets.push(...BSABankFilter(entry[1]));
-            } else {
+            if (typeof entry[1] === "object") {
                 Object.entries(entry[1]).forEach((subEntry, i) => {
-                    assets.push({
+                    liabilities.push({
                         name:
                             (subEntry[1] < 0
                                 ? "Less. "
@@ -153,7 +108,7 @@ const BSFilter = (data) => {
                             typeof subEntry[1] === "number"
                                 ? formatCurrency(subEntry[1])
                                 : null,
-                        valid: suggestionCorpus.BS.By.includes(subEntry[0]),
+                        valid: suggestionCorpus.BS.To.includes(subEntry[0]),
                         underline: {
                             name: false,
                             amount: Object.entries(entry[1]).length - 1 === i,
@@ -161,19 +116,74 @@ const BSFilter = (data) => {
                         height: 1,
                     });
                 });
+                liabilities.push({
+                    name: "",
+                    amount: formatCurrency(getObjectSum(entry[1])),
+                    valid: true,
+                    underline: {
+                        name: false,
+                        amount: false,
+                    },
+                    height: 0,
+                });
             }
+        });
+
+        // Calculating Assets
+        Object.entries(data?.BS?.By).forEach((entry) => {
             assets.push({
-                name: "",
-                amount: formatCurrency(getObjectSum(entry[1])),
-                valid: true,
+                name: entry[0],
+                amount:
+                    typeof entry[1] === "number"
+                        ? formatCurrency(entry[1])
+                        : null,
+                valid: suggestionCorpus.BS.By.includes(entry[0]),
                 underline: {
-                    name: false,
+                    name: typeof entry[1] === "object",
                     amount: false,
                 },
                 height: 0,
             });
-        }
-    });
+
+            if (typeof entry[1] === "object") {
+                if (entry[0] === "Cash at Bank") {
+                    assets.push(...BSABankFilter(entry[1]));
+                } else {
+                    Object.entries(entry[1]).forEach((subEntry, i) => {
+                        assets.push({
+                            name:
+                                (subEntry[1] < 0
+                                    ? "Less. "
+                                    : i > 0
+                                    ? "Add. "
+                                    : "") + subEntry[0],
+                            amount:
+                                typeof subEntry[1] === "number"
+                                    ? formatCurrency(subEntry[1])
+                                    : null,
+                            valid: suggestionCorpus.BS.By.includes(subEntry[0]),
+                            underline: {
+                                name: false,
+                                amount:
+                                    Object.entries(entry[1]).length - 1 === i,
+                            },
+                            height: 1,
+                        });
+                    });
+                }
+                assets.push({
+                    name: "",
+                    amount: formatCurrency(getObjectSum(entry[1])),
+                    valid: true,
+                    underline: {
+                        name: false,
+                        amount: false,
+                    },
+                    height: 0,
+                });
+            }
+        });
+    }
 
     filteredData.data = {
         tradename,
@@ -183,8 +193,8 @@ const BSFilter = (data) => {
         liabilities,
         assets,
         total: [
-            formatCurrency(getObjectSum(data.BS.To)),
-            formatCurrency(getObjectSum(data.BS.By)),
+            data.BS ? formatCurrency(getObjectSum(data.BS.To)) : 0,
+            data.BS ? formatCurrency(getObjectSum(data.BS.By)) : 0,
         ],
     };
     filteredData.success = true;
@@ -237,112 +247,24 @@ const TPLFilter = (data) => {
         pl_by = [];
 
     // Calculating Trading To
-    Object.entries(data?.T?.To).forEach((entry) => {
-        t_to.push({
-            name: "To " + entry[0],
-            amount:
-                typeof entry[1] === "number" ? formatCurrency(entry[1]) : null,
-            valid: suggestionCorpus.T.To.includes(entry[0]),
-            underline: {
-                name: typeof entry[1] === "object",
-                amount: false,
-            },
-            height: 0,
-        });
-        if (typeof entry[1] === "object") {
-            Object.entries(entry[1]).forEach((subEntry, i) => {
-                t_to.push({
-                    name:
-                        (subEntry[1] < 0 ? "Less. " : i > 0 ? "Add. " : "") +
-                        subEntry[0],
-                    amount:
-                        typeof subEntry[1] === "number"
-                            ? formatCurrency(subEntry[1])
-                            : null,
-                    valid: suggestionCorpus.T.To.includes(subEntry[0]),
-                    underline: {
-                        name: false,
-                        amount: Object.entries(entry[1]).length - 1 === i,
-                    },
-                    height: 1,
-                });
-            });
+    if (data.T) {
+        Object.entries(data?.T?.To).forEach((entry) => {
             t_to.push({
-                name: "",
-                amount: formatCurrency(getObjectSum(entry[1])),
-                valid: true,
+                name: "To " + entry[0],
+                amount:
+                    typeof entry[1] === "number"
+                        ? formatCurrency(entry[1])
+                        : null,
+                valid: suggestionCorpus.T.To.includes(entry[0]),
                 underline: {
-                    name: false,
+                    name: typeof entry[1] === "object",
                     amount: false,
                 },
                 height: 0,
             });
-        }
-    });
-
-    // Calculating Trading By
-    Object.entries(data?.T?.By).forEach((entry) => {
-        t_by.push({
-            name: "By " + entry[0],
-            amount:
-                typeof entry[1] === "number" ? formatCurrency(entry[1]) : null,
-            valid: suggestionCorpus.T.By.includes(entry[0]),
-            underline: {
-                name: typeof entry[1] === "object",
-                amount: false,
-            },
-            height: 0,
-        });
-        if (typeof entry[1] === "object") {
-            Object.entries(entry[1]).forEach((subEntry, i) => {
-                t_by.push({
-                    name:
-                        (subEntry[1] < 0 ? "Less. " : i > 0 ? "Add. " : "") +
-                        subEntry[0],
-                    amount:
-                        typeof subEntry[1] === "number"
-                            ? formatCurrency(subEntry[1])
-                            : null,
-                    valid: suggestionCorpus.T.By.includes(subEntry[0]),
-                    underline: {
-                        name: false,
-                        amount: Object.entries(entry[1]).length - 1 === i,
-                    },
-                    height: 1,
-                });
-            });
-            t_by.push({
-                name: "",
-                amount: formatCurrency(getObjectSum(entry[1])),
-                valid: true,
-                underline: {
-                    name: false,
-                    amount: false,
-                },
-                height: 0,
-            });
-        }
-    });
-
-    // Calculating Profit & Loss To
-    Object.entries(data?.PL?.To).forEach((entry) => {
-        pl_to.push({
-            name: "To " + entry[0],
-            amount:
-                typeof entry[1] === "number" ? formatCurrency(entry[1]) : null,
-            valid: suggestionCorpus.PL.To.includes(entry[0]),
-            underline: {
-                name: typeof entry[1] === "object",
-                amount: false,
-            },
-            height: 0,
-        });
-        if (typeof entry[1] === "object") {
-            if (entry[0] === "Depreciation") {
-                pl_to.push(...DepTPLFilter(entry[1]));
-            } else {
+            if (typeof entry[1] === "object") {
                 Object.entries(entry[1]).forEach((subEntry, i) => {
-                    pl_to.push({
+                    t_to.push({
                         name:
                             (subEntry[1] < 0
                                 ? "Less. "
@@ -353,7 +275,7 @@ const TPLFilter = (data) => {
                             typeof subEntry[1] === "number"
                                 ? formatCurrency(subEntry[1])
                                 : null,
-                        valid: suggestionCorpus.PL.To.includes(subEntry[0]),
+                        valid: suggestionCorpus.T.To.includes(subEntry[0]),
                         underline: {
                             name: false,
                             amount: Object.entries(entry[1]).length - 1 === i,
@@ -361,63 +283,173 @@ const TPLFilter = (data) => {
                         height: 1,
                     });
                 });
-            }
-            pl_to.push({
-                name: "",
-                amount: formatCurrency(getObjectSum(entry[1])),
-                valid: true,
-                underline: {
-                    name: false,
-                    amount: false,
-                },
-                height: 0,
-            });
-        }
-    });
-
-    // Calculating Profit & Loss By
-    Object.entries(data?.PL?.By).forEach((entry) => {
-        pl_by.push({
-            name: "By " + entry[0],
-            amount:
-                typeof entry[1] === "number" ? formatCurrency(entry[1]) : null,
-            valid: suggestionCorpus.PL.By.includes(entry[0]),
-            underline: {
-                name: typeof entry[1] === "object",
-                amount: false,
-            },
-            height: 0,
-        });
-        if (typeof entry[1] === "object") {
-            Object.entries(entry[1]).forEach((subEntry, i) => {
-                pl_by.push({
-                    name:
-                        (subEntry[1] < 0 ? "Less. " : i > 0 ? "Add. " : "") +
-                        subEntry[0],
-                    amount:
-                        typeof subEntry[1] === "number"
-                            ? formatCurrency(subEntry[1])
-                            : null,
-                    valid: suggestionCorpus.PL.By.includes(subEntry[0]),
+                t_to.push({
+                    name: "",
+                    amount: formatCurrency(getObjectSum(entry[1])),
+                    valid: true,
                     underline: {
                         name: false,
-                        amount: Object.entries(entry[1]).length - 1 === i,
+                        amount: false,
                     },
-                    height: 1,
+                    height: 0,
                 });
-            });
-            pl_by.push({
-                name: "",
-                amount: formatCurrency(getObjectSum(entry[1])),
-                valid: true,
+            }
+        });
+
+        // Calculating Trading By
+        Object.entries(data?.T?.By).forEach((entry) => {
+            t_by.push({
+                name: "By " + entry[0],
+                amount:
+                    typeof entry[1] === "number"
+                        ? formatCurrency(entry[1])
+                        : null,
+                valid: suggestionCorpus.T.By.includes(entry[0]),
                 underline: {
-                    name: false,
+                    name: typeof entry[1] === "object",
                     amount: false,
                 },
                 height: 0,
             });
-        }
-    });
+            if (typeof entry[1] === "object") {
+                Object.entries(entry[1]).forEach((subEntry, i) => {
+                    t_by.push({
+                        name:
+                            (subEntry[1] < 0
+                                ? "Less. "
+                                : i > 0
+                                ? "Add. "
+                                : "") + subEntry[0],
+                        amount:
+                            typeof subEntry[1] === "number"
+                                ? formatCurrency(subEntry[1])
+                                : null,
+                        valid: suggestionCorpus.T.By.includes(subEntry[0]),
+                        underline: {
+                            name: false,
+                            amount: Object.entries(entry[1]).length - 1 === i,
+                        },
+                        height: 1,
+                    });
+                });
+                t_by.push({
+                    name: "",
+                    amount: formatCurrency(getObjectSum(entry[1])),
+                    valid: true,
+                    underline: {
+                        name: false,
+                        amount: false,
+                    },
+                    height: 0,
+                });
+            }
+        });
+    }
+
+    if (data.PL) {
+        // Calculating Profit & Loss To
+        Object.entries(data?.PL?.To).forEach((entry) => {
+            pl_to.push({
+                name: "To " + entry[0],
+                amount:
+                    typeof entry[1] === "number"
+                        ? formatCurrency(entry[1])
+                        : null,
+                valid: suggestionCorpus.PL.To.includes(entry[0]),
+                underline: {
+                    name: typeof entry[1] === "object",
+                    amount: false,
+                },
+                height: 0,
+            });
+            if (typeof entry[1] === "object") {
+                if (entry[0] === "Depreciation") {
+                    pl_to.push(...DepTPLFilter(entry[1]));
+                } else {
+                    Object.entries(entry[1]).forEach((subEntry, i) => {
+                        pl_to.push({
+                            name:
+                                (subEntry[1] < 0
+                                    ? "Less. "
+                                    : i > 0
+                                    ? "Add. "
+                                    : "") + subEntry[0],
+                            amount:
+                                typeof subEntry[1] === "number"
+                                    ? formatCurrency(subEntry[1])
+                                    : null,
+                            valid: suggestionCorpus.PL.To.includes(subEntry[0]),
+                            underline: {
+                                name: false,
+                                amount:
+                                    Object.entries(entry[1]).length - 1 === i,
+                            },
+                            height: 1,
+                        });
+                    });
+                }
+                pl_to.push({
+                    name: "",
+                    amount: formatCurrency(getObjectSum(entry[1])),
+                    valid: true,
+                    underline: {
+                        name: false,
+                        amount: false,
+                    },
+                    height: 0,
+                });
+            }
+        });
+
+        // Calculating Profit & Loss By
+        Object.entries(data?.PL?.By).forEach((entry) => {
+            pl_by.push({
+                name: "By " + entry[0],
+                amount:
+                    typeof entry[1] === "number"
+                        ? formatCurrency(entry[1])
+                        : null,
+                valid: suggestionCorpus.PL.By.includes(entry[0]),
+                underline: {
+                    name: typeof entry[1] === "object",
+                    amount: false,
+                },
+                height: 0,
+            });
+            if (typeof entry[1] === "object") {
+                Object.entries(entry[1]).forEach((subEntry, i) => {
+                    pl_by.push({
+                        name:
+                            (subEntry[1] < 0
+                                ? "Less. "
+                                : i > 0
+                                ? "Add. "
+                                : "") + subEntry[0],
+                        amount:
+                            typeof subEntry[1] === "number"
+                                ? formatCurrency(subEntry[1])
+                                : null,
+                        valid: suggestionCorpus.PL.By.includes(subEntry[0]),
+                        underline: {
+                            name: false,
+                            amount: Object.entries(entry[1]).length - 1 === i,
+                        },
+                        height: 1,
+                    });
+                });
+                pl_by.push({
+                    name: "",
+                    amount: formatCurrency(getObjectSum(entry[1])),
+                    valid: true,
+                    underline: {
+                        name: false,
+                        amount: false,
+                    },
+                    height: 0,
+                });
+            }
+        });
+    }
 
     filteredData.data = {
         tradename,
@@ -427,14 +459,14 @@ const TPLFilter = (data) => {
         t_to,
         t_by,
         t_total: [
-            formatCurrency(getObjectSum(data.T.To)),
-            formatCurrency(getObjectSum(data.T.By)),
+            data.T ? formatCurrency(getObjectSum(data.T.To)) : 0,
+            data.T ? formatCurrency(getObjectSum(data.T.By)) : 0,
         ],
         pl_to,
         pl_by,
         pl_total: [
-            formatCurrency(getObjectSum(data.PL.To)),
-            formatCurrency(getObjectSum(data.PL.By)),
+            data.PL ? formatCurrency(getObjectSum(data.PL.To)) : 0,
+            data.PL ? formatCurrency(getObjectSum(data.PL.By)) : 0,
         ],
     };
     filteredData.success = true;
