@@ -2,9 +2,9 @@ import React from "react";
 import { BsEyeFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 
-import { toggleView } from '../features/viewer/viewerSlice';
-import { toggleEditMode } from "../app/appReducer";
-import Dropdown from "./Dropdown";
+import { toggleView } from '../viewer/viewerSlice';
+import { toggleEditMode } from "../../app/appReducer";
+import Dropdown from "../../atoms/Dropdown";
 
 export default function ViewDropdown(props) {
   // dropdown props
@@ -90,7 +90,7 @@ export default function ViewDropdown(props) {
       </div> */}
       <Dropdown onChange={setDropdownPopoverShow} isOpen={dropdownPopoverShow}
         label={<><BsEyeFill className="text-lg leading-lg text-white opacity-75" />
-          <span className="ml-2">View</span></>}>
+          <span>View</span></>}>
         <a
           href="#tpl"
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"

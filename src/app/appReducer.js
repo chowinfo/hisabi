@@ -1,21 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const appSlice = createSlice({
-	name: "app",
+	name: 'app',
 	initialState: {
 		isEditing: false,
 		data: {
 			year: 2021,
 			Info: {
-				Name: "XYZ",
-				"Trade Name": "ABC Pvt Ltd",
-				PAN: "AAAAA12345A",
-				"Address 1": "Line 1",
-				"Address 2": "Line 2",
+				Name: 'XYZ',
+				'Trade Name': 'ABC Pvt Ltd',
+				PAN: 'AAAAA12345A',
+				'Address 1': 'Line 1',
+				'Address 2': 'Line 2',
 			},
 			T: {
-				To: {},
-				By: {},
+				To: {
+					'Opening Stock': 10450,
+				},
+				By: {
+					'Closing Stock': 10650,
+				},
 			},
 			PL: {
 				To: {},
@@ -33,44 +37,43 @@ export const appSlice = createSlice({
 			state.data = action.payload;
 		},
 		toggleEditMode: (state, action) => {
-			state.isEditing = action.payload.type === "edit";
+			state.isEditing = action.payload.type === 'edit';
 		},
-		updateInfo: (state, action) => {
-			const { key, value } = action.payload;
-			state.data.Info[key] = value;
+		updateSheet: (state, action) => {
+			const { key, value, sheet } = action.payload;
+			sheet.split('.').reduce((o, i) => o[i], state.data)[key] = value;
 		},
-		updateTPLTo: (state, action) => {
-			const { key, value } = action.payload;
-			state.data.T.To[key] = value;
+		updateSheetKey: (state, action) => {
+			const { key, newKey, sheet } = action.payload;
+			const currentSheet = sheet.split('.').reduce((o, i) => o[i], state.data);
+			if (key !== newKey && Object.keys(currentSheet).includes(newKey)) {
+				console.error('Key already exists');
+				return;
+			}
+			const newSheet = Object.keys(currentSheet).reduce((o, i) => {
+				if (i === key) {
+					o[newKey] = currentSheet[i];
+				} else {
+					o[i] = currentSheet[i];
+				}
+				return o;
+			}, {});
+			sheet.split('.').reduce((o, i, index) => {
+				if (index === sheet.split('.').length - 1) {
+					o[i] = newSheet;
+				} else {
+					o[i] = o[i] || {};
+				}
+				return o[i];
+			}, state.data);
 		},
-		updateTPLBy: (state, action) => {
-			const { key, value } = action.payload;
-			state.data.T.By[key] = value;
-		},
-		updateBSTo: (state, action) => {
-			const { key, value } = action.payload;
-			state.data.BS.To[key] = value;
-		},
-		updateBSBy: (state, action) => {
-			const { key, value } = action.payload;
-			state.data.BS.By[key] = value;
-		},
-		updateCS: (state, action) => {
-			const { key, value } = action.payload;
-			state.data.CS[key] = value;
+		addSheetRow: (state, action) => {
+			const { key, value, sheet } = action.payload;
+			sheet.split('.').reduce((o, i) => o[i], state.data)[key] = value;
 		},
 	},
 });
 
-export const {
-	updateData,
-	toggleEditMode,
-	updateInfo,
-	updateTPLBy,
-	updateTPLTo,
-	updateBSBy,
-	updateBSTo,
-	updateCS,
-} = appSlice.actions;
+export const { updateData, toggleEditMode, updateSheet, updateSheetKey, addSheetRow } = appSlice.actions;
 
 export default appSlice.reducer;

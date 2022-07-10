@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import TPLEdit from "./TPLEdit";
+import TEdit from "./TEdit";
+import PLEdit from "./PLEdit";
 import BSEdit from "./BSEdit";
 import CSEdit from "./CSEdit";
 import InfoEdit from './InfoEdit';
 
-function Editor({ isActive, ...others }) {
+const Editor = ({ isActive, ...others }) => {
     const edit = useSelector((state) => state.editor.edit);
     if (!isActive)
         return null;
@@ -18,8 +19,13 @@ function Editor({ isActive, ...others }) {
             ) : (
                 <></>
             )}
-            {edit === "TPL" ? (
-                <TPLEdit />
+            {edit === "T" ? (
+                <TEdit />
+            ) : (
+                <></>
+            )}
+            {edit === "PL" ? (
+                <PLEdit />
             ) : (
                 <></>
             )}
@@ -39,10 +45,10 @@ function Editor({ isActive, ...others }) {
 
 Editor.propTypes = {
     children: PropTypes.node,
-    isActive: PropTypes.bool.isRequired
+    isActive: PropTypes.bool.isRequired,
 };
 
-Editor.propTypes = {
+Editor.defaultProps = {
     isActive: true
 };
 

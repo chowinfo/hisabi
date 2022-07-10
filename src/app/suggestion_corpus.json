@@ -1,0 +1,134 @@
+{
+    "Info": [
+        "Name",
+        "Trade Name",
+        "PAN",
+        "Address 1",
+        "Address 2"
+    ],
+    "T": {
+        "To": [
+            "Opening Stock",
+            "Purchase",
+            "Carriage Inwards",
+            "Gross Profit"
+        ],
+        "By": [
+            "Sales",
+            "Closing Stock"
+        ]
+    },
+    "PL": {
+        "To": [
+            "Rent",
+            "Salary",
+            "Trade License",
+            "Professional Tax",
+            "Municipal Tax",
+            "Books & Magazines",
+            "Electric Charges",
+            "Printing & Stationary",
+            "Travel & Conveyance",
+            "Accounting Charges",
+            "Telephone Charges",
+            "General Charges",
+            "Bank Charges",
+            "Net Profit",
+            "Depreciation",
+            "Furniture @ 10%",
+            "Fan @ 15%",
+            "Plant & Machineries @ 15%",
+            "Lighting & Fittings @ 15%",
+            "Domestic Appliances @ 15%",
+            "Tools & Equipments @ 15%",
+            "Land & Building @ 5%",
+            "Computer @ 15%"
+        ],
+        "By": [
+            "Gross Profit",
+            "Interest on Savings",
+            "Interest on Deposits",
+            "Interest on IT Refund",
+            "Interest on Capital",
+            "House Rent",
+            "Tution Fees"
+        ]
+    },
+    "BS": {
+        "To": [
+            "Capital Account",
+            "Opening Balance",
+            "Last Account",
+            "Net Profit",
+            "Income Tax Refund",
+            "Cash Drawing",
+            "LIP",
+            "Sundry Creditors",
+            "Other Liabilities",
+            "Loans"
+        ],
+        "By": [
+            "Furniture",
+            "Computer",
+            "Mobile",
+            "TDS",
+            "Other Assets",
+            "Lighting & Fittings",
+            "Fan",
+            "Tools & Equipments",
+            "Ornaments",
+            "Fridge",
+            "Plant & Machineries",
+            "Land & Building",
+            "Income Tax Refund",
+            "Domestic Appliances",
+            "Opening Balance",
+            "Addition",
+            "Accrued Interest",
+            "Last Account",
+            "Dep @ 10%",
+            "Dep @ 15%",
+            "Dep @ 5%",
+            "GST Credit",
+            "CGST",
+            "SGST",
+            "Sundry Debtors",
+            "Closing Stock",
+            "Advances and Investment",
+            "Cash at Bank",
+            "Cash in Hand"
+        ]
+    },
+    "CS": [
+        "Income from Salary",
+        "Standard Deduction u/s 16A",
+        "Income from Business",
+        "Income from Profession",
+        "Net Profit",
+        "Income from House Property",
+        "Rent received",
+        "Tax Paid to Local Authorities",
+        "Deduction u/s 24(a) 30%",
+        "Income from Other Sources",
+        "Interest on Savings",
+        "Interest on Deposits",
+        "Interest on IT Refund",
+        "Interest on Capital",
+        "Total Income",
+        "Deductions",
+        "u/s 80C",
+        "u/s 80D",
+        "u/s 80TTA",
+        "u/s 80TTB",
+        "Taxable Income",
+        "Taxable Income R/F u/s 288A",
+        "Tax Rebate u/s 87A",
+        "TDS Paid",
+        "Tax Refund",
+        "Tax Payable",
+        "Tax there on"
+    ],
+    "pattern": {
+        "Cash at Bank": "(\\w+)\\s*,\\s*([\\w\\s]+)\\s*,\\s*([\\w]+)\\s*A/c\\s*-\\s*([\\d]+)"
+    }
+}

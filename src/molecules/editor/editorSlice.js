@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const editorSlice = createSlice({
     name: "editor",
     initialState: {
-        edit: "TPL"
+        edit: "T"
     },
     reducers: {
         toggleEdit: (state, action) => {

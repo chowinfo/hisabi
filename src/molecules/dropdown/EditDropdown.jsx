@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { toggleEdit } from '../features/editor/editorSlice';
-import { toggleEditMode } from "../app/appReducer";
-import Dropdown from "./Dropdown";
+import { toggleEdit } from '../editor/editorSlice';
+import { toggleEditMode } from "../../app/appReducer";
+import Dropdown from "../../atoms/Dropdown";
 import { FaEdit } from "react-icons/fa";
 
 export default function EditDropdown(props) {
@@ -20,7 +20,7 @@ export default function EditDropdown(props) {
         <>
             <Dropdown onChange={setDropdownPopoverShow} isOpen={dropdownPopoverShow}
                 label={<><FaEdit className="text-lg leading-lg text-white opacity-75" />
-                    <span className="ml-2">Edit</span></>}>
+                    <span>Edit</span></>}>
                 <a
                     href="#info"
                     className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
@@ -34,16 +34,28 @@ export default function EditDropdown(props) {
                     Information
                 </a>
                 <a
-                    href="#tpl"
+                    href="#t"
                     className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
                     onClick={(e) => {
                         e.preventDefault();
-                        dispatch(toggleEdit("TPL"));
+                        dispatch(toggleEdit("T"));
                         dispatch(toggleEditMode({ type: "edit" }));
                         closeDropdownPopover();
                     }}
                 >
-                    Trading Profit & Loss
+                    Trading
+                </a>
+                <a
+                    href="#pl"
+                    className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        dispatch(toggleEdit("PL"));
+                        dispatch(toggleEditMode({ type: "edit" }));
+                        closeDropdownPopover();
+                    }}
+                >
+                    Profit & Loss
                 </a>
                 <a
                     href="#bs"
