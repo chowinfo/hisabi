@@ -26,9 +26,9 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # for posts's lastmod
-          token: ${{ secrets.GH_TOKEN || github.token }}
+#         with:
+#           fetch-depth: 0  # for posts's lastmod
+#           token: ${{ secrets.GH_TOKEN || github.token }}
           
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
