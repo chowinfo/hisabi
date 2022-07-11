@@ -493,8 +493,12 @@ const CSFilter = (data) => {
         fyay = `FY - ${year - 1}-${year}, AY - ${year}-${year + 1}`,
         cs_rows = [];
 
+    // Constants
+    const nonDeductableFields = ["Deductions"],
+    nullableFields = ["Tax there on", "Tax Refund", "Tax Payable"];
+
     Object.entries(data?.CS).forEach((entry) => {
-        if (entry[0] === "Tax Payable" && entry[1] === 0) {
+        if (nullableFields.includes(entry[0]) && entry[1] === 0) {
             cs_rows[cs_rows.length - 1].underline.amount = true;
             cs_rows.push({
                 name: entry[0],
@@ -522,12 +526,11 @@ const CSFilter = (data) => {
             });
         }
 
-        const nonDeductables = ["Deductions"];
         if (typeof entry[1] === "object") {
             Object.entries(entry[1]).forEach((subEntry, i) => {
                 cs_rows.push({
                     name:
-                        (subEntry[1] < 0 && !nonDeductables.includes(entry[0])? "Less. " : i > 0 ? "Add. " : "") +
+                        (subEntry[1] < 0 && !nonDeductableFields.includes(entry[0])? "Less. " : i > 0 ? "Add. " : "") +
                         subEntry[0],
                     amount:
                         typeof subEntry[1] === "number"

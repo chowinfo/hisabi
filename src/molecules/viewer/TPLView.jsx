@@ -91,7 +91,7 @@ class TPLView extends Component {
                                         return (
                                             <div
                                                 className={
-                                                    "grid grid-cols-2 px-1 mx-" +
+                                                    "grid grid-cols-2 px-" +
                                                     to.height * 4 +
                                                     (to.valid
                                                         ? ""
@@ -135,7 +135,7 @@ class TPLView extends Component {
                                         return (
                                             <div
                                                 className={
-                                                    "grid grid-cols-2 px-1 mx-" +
+                                                    "grid grid-cols-2 px-" +
                                                     by.height * 4 +
                                                     (by.valid
                                                         ? ""
@@ -210,7 +210,7 @@ class TPLView extends Component {
                                         return (
                                             <div
                                                 className={
-                                                    "grid grid-cols-2 px-1 mx-" +
+                                                    "grid grid-cols-2 px-" +
                                                     to.height * 4 +
                                                     (to.valid
                                                         ? ""
@@ -253,7 +253,7 @@ class TPLView extends Component {
                                     (by, index) => {
                                         return (
                                             <div
-                                                className={'grid grid-cols-2 px-1 mx-' + by.height * 4 + (by.valid ? "" : " bg-red-light")}
+                                                className={'grid grid-cols-2 px-' + by.height * 4 + (by.valid ? "" : " bg-red-light")}
                                                 key={index}
                                             >
                                                 <div

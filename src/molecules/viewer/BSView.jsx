@@ -89,7 +89,7 @@ class BSView extends Component {
                                         return (
                                             <div
                                                 className={
-                                                    "grid grid-cols-2 px-1 mx-" +
+                                                    "grid grid-cols-2 px-" +
                                                     liability.height * 4 +
                                                     (liability.valid
                                                         ? ""
@@ -132,7 +132,7 @@ class BSView extends Component {
                                     return (
                                         <div
                                             className={
-                                                "grid grid-cols-2 px-1 mx-" +
+                                                "grid grid-cols-2 px-" +
                                                 asset.height * 4 +
                                                 (asset.valid
                                                     ? ""

@@ -65,7 +65,7 @@ class CSView extends Component {
                             return (
                                 <div
                                     className={
-                                        "grid grid-cols-2 px-1 mx-" +
+                                        "grid grid-cols-2 px-" +
                                         row.height * 4 +
                                         (row.valid
                                             ? ""
