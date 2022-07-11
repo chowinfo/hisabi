@@ -37,6 +37,8 @@
             "Depreciation",
             "Furniture @ 10%",
             "Fan @ 15%",
+            "Mobile @ 15%",
+            "Fridge @ 15%",
             "Plant & Machineries @ 15%",
             "Lighting & Fittings @ 15%",
             "Domestic Appliances @ 15%",
@@ -63,6 +65,7 @@
             "Income Tax Refund",
             "Cash Drawing",
             "LIP",
+            "PPF",
             "Sundry Creditors",
             "Other Liabilities",
             "Loans"
@@ -101,6 +104,7 @@
     },
     "CS": [
         "Income from Salary",
+        "Salary received",
         "Standard Deduction u/s 16A",
         "Income from Business",
         "Income from Profession",
