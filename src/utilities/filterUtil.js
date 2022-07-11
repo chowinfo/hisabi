@@ -522,11 +522,12 @@ const CSFilter = (data) => {
             });
         }
 
+        const nonDeductables = ["Deductions"];
         if (typeof entry[1] === "object") {
             Object.entries(entry[1]).forEach((subEntry, i) => {
                 cs_rows.push({
                     name:
-                        (subEntry[1] < 0 ? "Less. " : i > 0 ? "Add. " : "") +
+                        (subEntry[1] < 0 && !nonDeductables.includes(entry[0])? "Less. " : i > 0 ? "Add. " : "") +
                         subEntry[0],
                     amount:
                         typeof subEntry[1] === "number"
