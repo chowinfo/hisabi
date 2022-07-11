@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/hisabi/static/css/main.95ebf100.chunk.css",
+    "main.js": "/hisabi/static/js/main.44d0b933.chunk.js",
+    "main.js.map": "/hisabi/static/js/main.44d0b933.chunk.js.map",
+    "runtime-main.js": "/hisabi/static/js/runtime-main.2f9f9a0c.js",
+    "runtime-main.js.map": "/hisabi/static/js/runtime-main.2f9f9a0c.js.map",
+    "static/js/2.57bcb8c9.chunk.js": "/hisabi/static/js/2.57bcb8c9.chunk.js",
+    "static/js/2.57bcb8c9.chunk.js.map": "/hisabi/static/js/2.57bcb8c9.chunk.js.map",
+    "static/js/3.6524ba9e.chunk.js": "/hisabi/static/js/3.6524ba9e.chunk.js",
+    "static/js/3.6524ba9e.chunk.js.map": "/hisabi/static/js/3.6524ba9e.chunk.js.map",
+    "static/js/4.7ab3422e.chunk.js": "/hisabi/static/js/4.7ab3422e.chunk.js",
+    "static/js/4.7ab3422e.chunk.js.map": "/hisabi/static/js/4.7ab3422e.chunk.js.map",
+    "index.html": "/hisabi/index.html",
+    "static/css/main.95ebf100.chunk.css.map": "/hisabi/static/css/main.95ebf100.chunk.css.map",
+    "static/js/2.57bcb8c9.chunk.js.LICENSE.txt": "/hisabi/static/js/2.57bcb8c9.chunk.js.LICENSE.txt",
+    "static/js/3.6524ba9e.chunk.js.LICENSE.txt": "/hisabi/static/js/3.6524ba9e.chunk.js.LICENSE.txt",
+    "static/js/4.7ab3422e.chunk.js.LICENSE.txt": "/hisabi/static/js/4.7ab3422e.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2f9f9a0c.js",
+    "static/js/3.6524ba9e.chunk.js",
+    "static/css/main.95ebf100.chunk.css",
+    "static/js/main.44d0b933.chunk.js"
+  ]
+}
