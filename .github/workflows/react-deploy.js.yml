@@ -17,12 +17,12 @@ jobs:
 
     steps:
     - name: Check for token
-        run: |
-          if ! [[ -z "${{ secrets.GH_TOKEN }}" ]]; then
-            echo ::set-output has_token=true
-          else
-            echo ::set-output has_token=false
-          fi
+      run: |
+        if ! [[ -z "${{ secrets.GH_TOKEN }}" ]]; then
+          echo ::set-output has_token=true
+        else
+          echo ::set-output has_token=false
+        fi
 
     - name: Checkout
       uses: actions/checkout@v2
