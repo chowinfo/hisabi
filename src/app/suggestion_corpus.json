@@ -11,49 +11,74 @@
             "Opening Stock",
             "Purchase",
             "Carriage Inwards",
-            "Gross Profit"
+            "Gross Profit",
+            "Wages",
+            "Fuel Charges",
+            "Welding Charges",
+            "Machine Upkeeping"
         ],
         "By": [
             "Sales",
-            "Closing Stock"
+            "Closing Stock",
+            "Freight Charges",
+            "Labour Charges",
+            "Iron Boring Scraps"
         ]
     },
     "PL": {
         "To": [
             "Rent",
             "Salary",
+            "Bonus",
+			"Tea & Tiffin",
+            "Raw Material",
+            "Opening Stock",
             "Trade License",
             "Professional Tax",
+			"Interest on Taxes",
+            "Carriage Outwards",
             "Municipal Tax",
             "Books & Magazines",
             "Electric Charges",
             "Printing & Stationary",
             "Travel & Conveyance",
             "Accounting Charges",
+            "Colouring",
             "Telephone Charges",
             "General Charges",
+            "Motorcycle Expenses",
             "Bank Charges",
+            "Interest on Loans",
+            "Insurance Loan",
             "Net Profit",
             "Depreciation",
             "Furniture @ 10%",
+			"Oven @ 10%",
             "Fan @ 15%",
             "Mobile @ 15%",
             "Fridge @ 15%",
+            "Ornaments @ 5%",
             "Plant & Machineries @ 15%",
             "Lighting & Fittings @ 15%",
             "Domestic Appliances @ 15%",
             "Tools & Equipments @ 15%",
+            "Home Utensils @ 15%",
+            "Motorcycle @ 15%",
+            "Car @ 15%",
             "Land & Building @ 5%",
             "Computer @ 15%"
         ],
         "By": [
-            "Gross Profit",
+            "Fees received",
             "Interest on Savings",
             "Interest on Deposits",
             "Interest on IT Refund",
             "Interest on Capital",
+            "Dividend Income",
             "House Rent",
-            "Tution Fees"
+            "Tution Fees",
+            "Gross Profit",
+            "Closing Stock"
         ]
     },
     "BS": {
@@ -62,13 +87,17 @@
             "Opening Balance",
             "Last Account",
             "Net Profit",
+			"Earned Premium",
             "Income Tax Refund",
             "Cash Drawing",
             "LIP",
             "PPF",
+            "Tution Fees",
             "Sundry Creditors",
             "Other Liabilities",
-            "Loans"
+            "Advances",
+            "Loans",
+			"Secured Loans"
         ],
         "By": [
             "Furniture",
@@ -81,8 +110,12 @@
             "Tools & Equipments",
             "Ornaments",
             "Fridge",
+            "Motorcycle",
+            "Car",
+			"Oven",
             "Plant & Machineries",
             "Land & Building",
+            "Home Utensils",
             "Income Tax Refund",
             "Domestic Appliances",
             "Opening Balance",
@@ -97,9 +130,12 @@
             "SGST",
             "Sundry Debtors",
             "Closing Stock",
-            "Advances and Investment",
+            "Loans & Advances",
+            "Mutual Funds",
             "Cash at Bank",
-            "Cash in Hand"
+            "Cash in Hand",
+            "Land",
+            "Workshop"
         ]
     },
     "CS": [
@@ -118,6 +154,7 @@
         "Interest on Deposits",
         "Interest on IT Refund",
         "Interest on Capital",
+        "Dividend Income",
         "Total Income",
         "Deductions",
         "u/s 80C",
@@ -129,8 +166,18 @@
         "Tax Rebate u/s 87A",
         "TDS Paid",
         "Tax Refund",
+        "Tax Payable after Rebate",
         "Tax Payable",
-        "Tax there on"
+        "Tax there on",
+        "Health and Education Cess @ 4%",
+        "Education Cess @ 3%",
+		"Education Cess Payable",
+		"Education Cess Payable with Interest",
+		"Interest u/s 234A",
+		"Interest u/s 234B",
+		"Interest u/s 234C",
+        "Interest Payable on Borrowed Capital",
+        "Self Assessment Tax Paid"
     ],
     "pattern": {
         "Cash at Bank": "(\\w+)\\s*,\\s*([\\w\\s]+)\\s*,\\s*([\\w]+)\\s*A/c\\s*-\\s*([\\d]+)"

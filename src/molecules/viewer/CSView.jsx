@@ -26,8 +26,9 @@ class CSView extends Component {
         const filteredData = CSFilter(nextProps.data);
 
         if (filteredData.success) {
-            const { name, pan, address, fyay, cs_rows } = filteredData.data;
+            const { title, name, pan, address, fyay, cs_rows } = filteredData.data;
             return {
+                title,
                 name,
                 pan,
                 address,
@@ -39,7 +40,7 @@ class CSView extends Component {
 
     render() {
         return (
-            <div className="bs-view print-view text-lg">
+            <div className="cs-view print-view">
                 <div className="text-center">
                     <div className="name uppercase">{this.state.name}</div>
                     <div className="pan">PAN - {this.state.pan}</div>
@@ -53,7 +54,7 @@ class CSView extends Component {
                         {this.state.fyay}
                     </div>
                     <div className="underline title">
-                        Computation of Total Income
+                        {this.state.title}
                     </div>
                 </div>
 

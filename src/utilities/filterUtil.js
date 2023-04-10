@@ -74,7 +74,10 @@ const BSFilter = (data) => {
     const tradename = data.Info?.["Trade Name"],
         name = data.Info?.["Name"],
         address = [data.Info?.["Address 1"], data.Info?.["Address 2"]],
-        title = "Balance Sheet as at 31st March, " + data.year;
+        title =
+            (data.type === "p" ? "Projected " : "") +
+            "Balance Sheet as at 31st March, " +
+            data.year;
 
     const assets = [],
         liabilities = [];
@@ -237,6 +240,7 @@ const TPLFilter = (data) => {
         name = data.Info?.["Name"],
         address = [data.Info?.["Address 1"], data.Info?.["Address 2"]],
         title =
+            (data.type === "p" ? "Projected " : "") +
             (data.T ? "Trading and " : "") +
             "Profit & Loss Account for the year ending 31st March, " +
             data.year;
@@ -491,11 +495,13 @@ const CSFilter = (data) => {
         address = [data.Info?.["Address 1"], data.Info?.["Address 2"]],
         pan = data.Info?.["PAN"],
         fyay = `FY - ${year - 1}-${year}, AY - ${year}-${year + 1}`,
-        cs_rows = [];
-
+        cs_rows = [],
+        title =
+            (data.type === "p" ? "Projected " : "") +
+            "Computation of Total Income";
     // Constants
     const nonDeductableFields = ["Deductions"],
-    nullableFields = ["Tax there on", "Tax Refund", "Tax Payable"];
+        nullableFields = ["Tax there on", "Tax Refund", "Tax Payable"];
 
     Object.entries(data?.CS).forEach((entry) => {
         if (nullableFields.includes(entry[0]) && entry[1] === 0) {
@@ -530,8 +536,11 @@ const CSFilter = (data) => {
             Object.entries(entry[1]).forEach((subEntry, i) => {
                 cs_rows.push({
                     name:
-                        (subEntry[1] < 0 && !nonDeductableFields.includes(entry[0])? "Less. " : i > 0 ? "Add. " : "") +
-                        subEntry[0],
+                        (!nonDeductableFields.includes(entry[0]) && i > 0
+                            ? subEntry[1] < 0
+                                ? "Less. "
+                                : "Add. "
+                            : "") + subEntry[0],
                     amount:
                         typeof subEntry[1] === "number"
                             ? formatCurrency(subEntry[1])
@@ -558,6 +567,7 @@ const CSFilter = (data) => {
     });
 
     filteredData.data = {
+        title,
         name,
         pan,
         address,
