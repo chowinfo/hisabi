@@ -62,7 +62,7 @@ class TPLView extends Component {
             <div className="tpl-view print-view">
                 <div className="text-center">
                     <div className="tradeName">{this.state.tradename}</div>
-                    <div className="name">Prop - {this.state.name}</div>
+                    {this.state.tradename !== this.state.name ? <div className="name">Prop - {this.state.name}</div> : <></>}
                     <div className="address1">{this.state.address[0]}</div>
                     <div className="underline address2">{this.state.address[1]}</div>
                     <div className="underline title">{this.state.title}</div>
