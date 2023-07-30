@@ -22,7 +22,7 @@ module.exports = {
         },
         fontFamily: {
             sans: ["Open Sans", "system-ui", "sans-serif"],
-            serif: ["EB Garamond", "serif"],
+            serif: ["Times New Roman", "serif"],
         },
     },
     variants: {

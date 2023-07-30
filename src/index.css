@@ -9,13 +9,13 @@
 * Color 5: #ffffff
 */
 
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Open+Sans&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
 	.viewer {
-		font-family: 'EB Garamond', 'ui-serif', serif;
+		font-family: Consolas, Inconsolata, 'ui-serif', sans-serif;
 	}
 }
