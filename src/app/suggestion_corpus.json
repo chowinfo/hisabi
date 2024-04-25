@@ -75,6 +75,7 @@
         ],
         "By": [
             "Salary received",
+            "Fees received",
             "Share of Profit",
             "Interest on Savings",
             "Interest on Deposits",
@@ -103,7 +104,8 @@
             "Other Liabilities",
             "Advances",
             "Loans",
-			"Secured Loans"
+			"Secured Loans",
+            "Unsecured Loans"
         ],
         "By": [
             "Furniture",
@@ -131,6 +133,7 @@
             "Dep @ 10%",
             "Dep @ 15%",
             "Dep @ 5%",
+            "Deduction",
             "GST Credit",
             "CGST",
             "SGST",
@@ -161,6 +164,7 @@
         "Income from Other Sources",
         "Interest on Savings",
         "Interest on Deposits",
+        "Interest on Bonds",
         "Interest on IT Refund",
         "Interest on Capital",
         "Dividend Income",
