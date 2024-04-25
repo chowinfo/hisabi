@@ -1,0 +1,8 @@
+@media print {
+    nav {
+        display: none;
+    }
+    .invalid-field {
+        background-color: theme('colors.white');
+    }
+}

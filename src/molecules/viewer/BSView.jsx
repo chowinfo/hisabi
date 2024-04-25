@@ -93,7 +93,7 @@ class BSView extends Component {
                                                     liability.height * 4 +
                                                     (liability.valid
                                                         ? ""
-                                                        : " bg-red-light")
+                                                        : " invalid-field")
                                                 }
                                                 key={index}
                                             >
@@ -136,7 +136,7 @@ class BSView extends Component {
                                                 asset.height * 4 +
                                                 (asset.valid
                                                     ? ""
-                                                    : " bg-red-light")
+                                                    : " invalid-field")
                                             }
                                             key={index}
                                         >

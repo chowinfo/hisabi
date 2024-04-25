@@ -70,7 +70,7 @@ class CSView extends Component {
                                         row.height * 4 +
                                         (row.valid
                                             ? ""
-                                            : " bg-red-light")
+                                            : " invalid-field")
                                     }
                                     key={index}
                                 >

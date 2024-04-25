@@ -13,11 +13,6 @@
     padding: 1rem;
 }
 
-@media print {
-    nav {
-        display: none;
-    }
-    .bg-red-color {
-        background-color: white !important;
-    }
+.invalid-field {
+    background-color: theme('colors.red-light');
 }

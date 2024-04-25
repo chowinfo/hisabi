@@ -95,7 +95,7 @@ class TPLView extends Component {
                                                     to.height * 4 +
                                                     (to.valid
                                                         ? ""
-                                                        : " bg-red-light")
+                                                        : " invalid-field")
                                                 }
                                                 key={index}
                                             >
@@ -139,7 +139,7 @@ class TPLView extends Component {
                                                     by.height * 4 +
                                                     (by.valid
                                                         ? ""
-                                                        : " bg-red-light")
+                                                        : " invalid-field")
                                                 }
                                                 key={index}
                                             >
@@ -214,7 +214,7 @@ class TPLView extends Component {
                                                     to.height * 4 +
                                                     (to.valid
                                                         ? ""
-                                                        : " bg-red-light")
+                                                        : " invalid-field")
                                                 }
                                                 key={index}
                                             >
@@ -253,7 +253,7 @@ class TPLView extends Component {
                                     (by, index) => {
                                         return (
                                             <div
-                                                className={'grid grid-cols-2 px-' + by.height * 4 + (by.valid ? "" : " bg-red-light")}
+                                                className={'grid grid-cols-2 px-' + by.height * 4 + (by.valid ? "" : " invalid-field")}
                                                 key={index}
                                             >
                                                 <div

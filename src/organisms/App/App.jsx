@@ -4,6 +4,7 @@ import { useReactToPrint } from 'react-to-print';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './App.css';
+import '../../styles/print.css';
 import Header from '../../atoms/Header';
 import Viewer from '../../molecules/viewer/Viewer';
 import Editor from '../../molecules/editor/Editor';
