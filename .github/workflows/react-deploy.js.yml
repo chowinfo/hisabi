@@ -49,6 +49,6 @@ jobs:
       - name: Commit build to gp-react
         run: |
             git --work-tree dist add --all
-            git commit -m "React deployment run by github-actions @ ${date '+%Y-%m-%d %H:%M:%S'}"
+            git commit -m "React deployment run by github-actions @ $(date '+%Y-%m-%d %H:%M:%S')"
             git push origin HEAD:gp-react --force
         shell: bash
