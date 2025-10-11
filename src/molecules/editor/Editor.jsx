@@ -9,15 +9,15 @@ import CSEdit from "./CSEdit";
 import InfoEdit from "./InfoEdit";
 
 const Editor = ({ isActive = true, children, ...others }) => {
-    const edit = useSelector((state) => state.editor.edit);
+    const sheet = useSelector((state) => state.editor.sheet);
     if (!isActive) return null;
     return (
         <div className="editor" {...others}>
-            {edit === "Info" ? <InfoEdit /> : <></>}
-            {edit === "T" ? <TEdit /> : <></>}
-            {edit === "PL" ? <PLEdit /> : <></>}
-            {edit === "BS" ? <BSEdit /> : <></>}
-            {edit === "CS" ? <CSEdit /> : <></>}
+            {sheet === "Info" ? <InfoEdit /> : <></>}
+            {sheet === "T" ? <TEdit /> : <></>}
+            {sheet === "PL" ? <PLEdit /> : <></>}
+            {sheet === "BS" ? <BSEdit /> : <></>}
+            {sheet === "CS" ? <CSEdit /> : <></>}
         </div>
     );
 };

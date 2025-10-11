@@ -7,13 +7,13 @@ import BSView from "./BSView";
 import CSView from "./CSView";
 
 const Viewer = React.forwardRef(({ isActive = true, children, ...props }, ref) => {
-    const view = useSelector((state) => state.viewer.view);
+    const sheet = useSelector((state) => state.viewer.sheet);
     if (!isActive) return null;
     return (
         <div className="viewer" ref={ref}>
-            {view === "TPL" ? <TPLView /> : <></>}
-            {view === "BS" ? <BSView /> : <></>}
-            {view === "CS" ? <CSView /> : <></>}
+            {sheet === "TPL" ? <TPLView /> : <></>}
+            {sheet === "BS" ? <BSView /> : <></>}
+            {sheet === "CS" ? <CSView /> : <></>}
         </div>
     );
 });

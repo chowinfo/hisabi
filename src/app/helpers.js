@@ -18,4 +18,21 @@ function formatCurrency(value) {
     return formatter.format(value);
 }
 
-export { formatter, formatCurrency, getObjectSum };
+function getParamFromUrl(param) {
+    const defaultParams = {
+        template: "view",
+        sheet: "TPL"
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param) || defaultParams[param];
+}
+
+function updateURLParam(param, value, initial=false) {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (!initial || !urlParams.has(param)) {
+        urlParams.set(param, value);
+    }
+    window.history.pushState({}, "", "?" + urlParams.toString());
+}
+
+export { formatter, formatCurrency, getObjectSum, getParamFromUrl, updateURLParam };
