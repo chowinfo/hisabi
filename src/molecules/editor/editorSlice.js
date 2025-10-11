@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getParamFromUrl } from "@/app/helpers";
 
 export const editorSlice = createSlice({
     name: "editor",
     initialState: {
-        edit: "T"
+        sheet: getParamFromUrl("sheet")
     },
     reducers: {
         toggleEdit: (state, action) => {
-            state.edit = action.payload;
+            state.sheet = action.payload;
         }
     }
 });

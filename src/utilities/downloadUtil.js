@@ -1,17 +1,17 @@
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
+// import html2canvas from "html2canvas";
+// import { jsPDF } from "jspdf";
 
-const downloadAsPDF = (rootElement, filename) => {
-    // const rootElement = document.querySelector(rootElementSelector);
-    html2canvas(rootElement).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF();
-        pdf.addImage(imgData, "JPEG", 0, 0);
-        pdf.save(filename);
-    });
-};
+// const downloadAsPDF = (rootElement, filename) => {
+//     // const rootElement = document.querySelector(rootElementSelector);
+//     html2canvas(rootElement).then((canvas) => {
+//         const imgData = canvas.toDataURL("image/png");
+//         const pdf = new jsPDF();
+//         pdf.addImage(imgData, "JPEG", 0, 0);
+//         pdf.save(filename);
+//     });
+// };
 
-const downloadFile = (data, filename)=> {
+const downloadFile = (data, filename) => {
     const contentType = "application/octet-stream";
     if (!data) {
         console.error(" No data");
@@ -49,6 +49,9 @@ const downloadFile = (data, filename)=> {
         null
     );
     a.dispatchEvent(e);
-}
+};
 
-export { downloadFile, downloadAsPDF };
+export {
+    downloadFile,
+    // downloadAsPDF 
+};

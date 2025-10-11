@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { toggleEdit } from '../editor/editorSlice';
-import { toggleEditMode } from "../../app/appReducer";
+import { toggleTemplate } from "../../app/appReducer";
 import Dropdown from "../../atoms/Dropdown";
 import { FaEdit } from "react-icons/fa";
 
@@ -27,7 +27,7 @@ export default function EditDropdown(props) {
                     onClick={(e) => {
                         e.preventDefault();
                         dispatch(toggleEdit("Info"));
-                        dispatch(toggleEditMode({ type: "edit" }));
+                        dispatch(toggleTemplate({ type: "edit" }));
                         closeDropdownPopover();
                     }}
                 >
@@ -39,7 +39,7 @@ export default function EditDropdown(props) {
                     onClick={(e) => {
                         e.preventDefault();
                         dispatch(toggleEdit("T"));
-                        dispatch(toggleEditMode({ type: "edit" }));
+                        dispatch(toggleTemplate({ type: "edit" }));
                         closeDropdownPopover();
                     }}
                 >
@@ -51,7 +51,7 @@ export default function EditDropdown(props) {
                     onClick={(e) => {
                         e.preventDefault();
                         dispatch(toggleEdit("PL"));
-                        dispatch(toggleEditMode({ type: "edit" }));
+                        dispatch(toggleTemplate({ type: "edit" }));
                         closeDropdownPopover();
                     }}
                 >
@@ -63,7 +63,7 @@ export default function EditDropdown(props) {
                     onClick={(e) => {
                         e.preventDefault();
                         dispatch(toggleEdit("BS"));
-                        dispatch(toggleEditMode({ type: "edit" }));
+                        dispatch(toggleTemplate({ type: "edit" }));
                         closeDropdownPopover();
                     }}
                 >
@@ -75,7 +75,7 @@ export default function EditDropdown(props) {
                     onClick={(e) => {
                         e.preventDefault();
                         dispatch(toggleEdit("CS"));
-                        dispatch(toggleEditMode({ type: "edit" }));
+                        dispatch(toggleTemplate({ type: "edit" }));
                         closeDropdownPopover();
                     }}
                 >

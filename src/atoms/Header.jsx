@@ -1,24 +1,26 @@
-import React from 'react';
+import React from "react";
 import {
     FaBars as MenuIconToggler,
     FaFileUpload as FileUploadIcon,
-    FaFileDownload as FileDownloadIcon,
-} from 'react-icons/fa';
-import { FiUpload as UploadIcon } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
+    FaFileDownload as FileDownloadIcon
+} from "react-icons/fa";
+import { FiUpload as UploadIcon } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
 
-import Modal from './Modal';
-import ViewDropdown from '../molecules/dropdown/ViewDropdown';
-import { updateData } from '../app/appReducer';
-import { downloadFile } from '../utilities/downloadUtil';
-import EditDropdown from '../molecules/dropdown/EditDropdown';
+import Modal from "./Modal";
+import ViewDropdown from "../molecules/dropdown/ViewDropdown";
+import { updateData } from "../app/appReducer";
+import { downloadFile } from "../utilities/downloadUtil";
+import EditDropdown from "../molecules/dropdown/EditDropdown";
 
-export default function Header({ printButton, setCurrentView, fixed }) {
+export default function Header({ printButton, isActive = true, setCurrentView, fixed }) {
     const [navbarOpen, setNavbarOpen] = React.useState(false);
     const [uploadModal, setUploadModal] = React.useState(false);
     const jsonFileInputRef = React.createRef();
     const dispatch = useDispatch();
     const data = useSelector((state) => state.app.data);
+
+    if (!isActive) return null;
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -34,10 +36,10 @@ export default function Header({ printButton, setCurrentView, fixed }) {
                 };
                 reader.readAsText(file);
             } else {
-                alert('Please select a JSON File');
+                alert("Please select a JSON File");
             }
         } else {
-            alert('Please select a file');
+            alert("Please select a file");
         }
     }
 
@@ -48,9 +50,9 @@ export default function Header({ printButton, setCurrentView, fixed }) {
                     <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
                         <a
                             className="text-sm font-bold leading-relaxed flex flex-row items-center gap-2 mr-4 py-2 whitespace-nowrap uppercase text-white"
-                            href={process.env.PUBLIC_URL + '/'}
+                            href={process.env.PUBLIC_URL}
                         >
-                            <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Hisabi Logo" className="w-10" />
+                            <img src={process.env.PUBLIC_URL + "/logo192.png"} alt="Hisabi Logo" className="w-10" />
                             <span>Hisabi</span>
                         </a>
                         <button
@@ -62,7 +64,7 @@ export default function Header({ printButton, setCurrentView, fixed }) {
                         </button>
                     </div>
                     <div
-                        className={'lg:flex flex-grow items-center' + (navbarOpen ? ' flex' : ' hidden')}
+                        className={"lg:flex flex-grow items-center" + (navbarOpen ? " flex" : " hidden")}
                         id="example-navbar-danger"
                     >
                         <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
@@ -88,9 +90,9 @@ export default function Header({ printButton, setCurrentView, fixed }) {
                                     className="px-3 py-2 flex gap-2 items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                                     href="#upload"
                                     onClick={() => {
-                                        const filename = Date.now() + '-' + data.Info.Name + '-' + data.year + '.json';
+                                        const filename = Date.now() + "-" + data.Info.Name + "-" + data.year + ".json";
                                         downloadFile(data, filename);
-                                        console.log('File downloaded!!');
+                                        console.log("File downloaded!!");
                                     }}
                                 >
                                     <FileDownloadIcon className="text-lg leading-lg text-white opacity-75" />
@@ -114,7 +116,7 @@ export default function Header({ printButton, setCurrentView, fixed }) {
                     <form id="upload-form" onSubmit={handleSubmit}>
                         <div className="form-group grid grid-cols-1 gap-2">
                             <label className="" htmlFor="jsonFile">
-                                Upload JSON file:{' '}
+                                Upload JSON file:{" "}
                             </label>
                             <input type="file" name="jsonFile" id="jsonFile" ref={jsonFileInputRef} />
                         </div>
@@ -123,7 +125,7 @@ export default function Header({ printButton, setCurrentView, fixed }) {
                                 type="submit"
                                 className="flex items-center text-xs uppercase font-bold leading-snug bg-green p-3 rounded text-white hover:bg-green-dark hover:opacity-75"
                             >
-                                {' '}
+                                {" "}
                                 <UploadIcon className="text-lg leading-lg" />
                                 Upload
                             </button>

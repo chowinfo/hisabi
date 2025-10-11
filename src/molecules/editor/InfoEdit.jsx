@@ -24,8 +24,6 @@ class InfoEdit extends Component {
 		children: PropTypes.node,
 	};
 
-	static defaultProps = {};
-
 	render() {
 		const { Info } = this.props.data;
 

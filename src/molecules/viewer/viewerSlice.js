@@ -1,17 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateURLParam, getParamFromUrl } from "@/app/helpers";
 
 export const viewerSlice = createSlice({
     name: "viewer",
     initialState: {
-        view: "TPL"
+        sheet: getParamFromUrl("sheet")
     },
     reducers: {
-        toggleView: (state, action) => {
-            state.view = action.payload;
+        toggleSheet: (state, action) => {
+            state.sheet = action.payload;
+            updateURLParam("sheet", action.payload);
         }
     }
 });
 
-export const { toggleView } = viewerSlice.actions;
+export const { toggleSheet } = viewerSlice.actions;
 
 export default viewerSlice.reducer;
